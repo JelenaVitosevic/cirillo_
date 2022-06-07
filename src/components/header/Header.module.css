@@ -1,0 +1,66 @@
+.header {
+    background-color: #eee2df;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px 0;
+    align-items: center;
+}
+
+.logoContainer {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.logo {
+    text-decoration: none;
+    color: black;
+    font-family: 'Concert One', cursive;
+    font-size: 30px;
+    align-items: center;
+}
+
+.logo:hover {
+    color: #b79492;
+}
+
+.logoIcon {
+    font-size: 40px;
+    color: black;
+}
+
+.headerList {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.headerListItem {
+    list-style: none;
+}
+
+.navIconLink {
+    color: black;
+}
+
+.navIcon {
+    font-size: 30px;
+    color: black;
+}
+
+.navIcon:hover {
+    color: #b79492;
+}
+
+.navIcon:active {
+    color: #b79492;
+}
+

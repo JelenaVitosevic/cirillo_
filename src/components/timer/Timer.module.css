@@ -1,0 +1,14 @@
+.timerWrapper {
+    text-align: center;
+    align-items: center;
+}
+
+.timer {
+    margin: 0 auto;
+    padding: 50px 0;
+    font-family: 'Concert One', cursive;
+    font-size: 60px;
+    letter-spacing: 20px;
+    background-color: #b79492;
+    color: black;
+}
