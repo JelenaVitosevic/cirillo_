@@ -7,8 +7,14 @@ function Timer({timer, animate}) {
     const {stopTimer} = useContext(CirilloContext)
 
     function renderTime({remainingTime}) {
-        const minutes = Math.floor(remainingTime/60)
-        const seconds = remainingTime % 60
+        let minutes = Math.floor(remainingTime/60)
+        if (minutes < 10) {
+            minutes = '0' + minutes
+        }
+        let seconds = remainingTime % 60
+        if (seconds < 10) {
+            seconds = '0' + seconds
+        }
         return (
             <div className={styles.time}>
                 {`${minutes}:${seconds}`}

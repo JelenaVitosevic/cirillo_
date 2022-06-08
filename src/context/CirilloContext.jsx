@@ -13,9 +13,7 @@ function CirilloContextProvider(props) {
         lastName: '',
         email: '',
         password: '',
-        key: 0
     })
-    const[users, setUsers] = useState([]);
 
     let myTimeValues = {
         focusTime: parseInt(focus),
@@ -97,13 +95,7 @@ function CirilloContextProvider(props) {
     }
 
     function consoleNewUser() {
-        setUser({
-            ...user,
-            key: user.key + 1
-        })
         console.log(user)
-        setUsers(users.push(user))
-        console.log(users)
     }
  
     return (
