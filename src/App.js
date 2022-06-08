@@ -8,6 +8,7 @@ import LogIn from './pages/login/LogIn';
 import Settings from './pages/settings/Settings';
 import Statistic from './pages/statistic/Statistic';
 import ErrorPage from './pages/error/ErrorPage';
+import Register from './pages/register/Register';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path='/login' element={<LogIn/>}></Route>
         <Route path='/statistic' element={<Statistic/>}></Route>
         <Route path='/settings' element={<Settings/>}></Route>
+        <Route path='/register' element={<Register/>}></Route>
         <Route path='*' element={<ErrorPage/>}></Route>
       </Routes>
       <Footer />

@@ -6,9 +6,16 @@ function CirilloContextProvider(props) {
     const[short, setShort] = useState(5)
     const[long, setLong] = useState(15)
     const[rounds, setRounds] = useState(4)
-    const[pomodoroTimer, setPomodoroTimer] = useState(0)
     const[startAnimate, setStartAnimate] = useState(false)
     const[timerPropValue, setTimerPropValue] = useState(focus)
+    const[user, setUser] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        key: 0
+    })
+    const[users, setUsers] = useState([]);
 
     let myTimeValues = {
         focusTime: parseInt(focus),
@@ -50,7 +57,7 @@ function CirilloContextProvider(props) {
         return myTimeValues
     }
 
-    function consoleValue(value) {
+    function activeTimerValue(value) {
         console.log(value)
         if (value === focus) {
             setTimerPropValue(focus)
@@ -61,15 +68,42 @@ function CirilloContextProvider(props) {
         else setTimerPropValue(long)
     }
 
-    function children({remainingTime, timerStyle}) {
-        const minutes = Math.floor(remainingTime/60)
-        const seconds = remainingTime % 60
-  
-        return (
-            <div>
-                <div>{minutes}:{seconds}</div>
-            </div>
-        ) //`${minutes}:${seconds}`
+    function setNewUser(userData, a) {
+
+        if (userData === 'firstName') {
+            setUser({
+                ...user,
+                firstName: a
+            })
+        }
+        else if (userData === 'lastName') {
+            setUser({
+                ...user,
+                lastName: a
+            })
+        }
+        else if (userData === 'email') {
+            setUser({
+                ...user,
+                email: a
+            })
+        }
+        else{
+            setUser({
+                ...user,
+                password: a
+            })
+        }
+    }
+
+    function consoleNewUser() {
+        setUser({
+            ...user,
+            key: user.key + 1
+        })
+        console.log(user)
+        setUsers(users.push(user))
+        console.log(users)
     }
  
     return (
@@ -79,18 +113,18 @@ function CirilloContextProvider(props) {
             short,
             long,
             rounds,
-            pomodoroTimer,
             startAnimate,
             myTimeValues,
             timerPropValue,
+            user,
             startTimer,
             pauseTimer,
             stopTimer,
             setTimerValues,
             consoleMyTimeValues,
-            consoleValue,
-            children
-            
+            activeTimerValue,
+            setNewUser,
+            consoleNewUser
         }}
         >
          {props.children}   
