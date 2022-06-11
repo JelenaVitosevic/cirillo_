@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import styles from './Settings.module.css';
 import Button from '../../components/buttons/Button';
 import { CirilloContext } from '../../context/CirilloContext';
+import { Link } from 'react-router-dom';
 
 function Settings() {
 
@@ -11,12 +12,15 @@ function Settings() {
     long, 
     rounds,
     setTimerValues,
-    consoleMyTimeValues 
+    consoleMyTimeValues,
+    buttonToHome
   } = useContext(CirilloContext)
 
   function handleClick(e) {
     consoleMyTimeValues()
+    buttonToHome()
     e.preventDefault()
+    
   }
 
   return (

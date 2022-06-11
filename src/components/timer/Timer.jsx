@@ -3,7 +3,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { CirilloContext } from '../../context/CirilloContext';
 import { useContext } from 'react';
 
-function Timer({timer, animate}) {
+function Timer({timer, animate, timerKey}) {
     const {stopTimer} = useContext(CirilloContext)
 
     function renderTime({remainingTime}) {
@@ -25,6 +25,7 @@ function Timer({timer, animate}) {
     return (
         <div className={styles.timerWrapper}>
         <CountdownCircleTimer
+        key={timerKey}
         className={styles.timer}
         isPlaying = {animate}
         duration = {timer * 60}
@@ -33,7 +34,6 @@ function Timer({timer, animate}) {
         size={220}
         trailColor='#eee2df'
         onComplete={ () => {
-            console.log('Time is over!')
             stopTimer()
             } 
         }

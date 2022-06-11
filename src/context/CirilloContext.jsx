@@ -6,8 +6,10 @@ function CirilloContextProvider(props) {
     const[short, setShort] = useState(5)
     const[long, setLong] = useState(15)
     const[rounds, setRounds] = useState(4)
+    const[round, setRound] = useState(1)
     const[startAnimate, setStartAnimate] = useState(false)
-    const[timerPropValue, setTimerPropValue] = useState(focus)
+    const[timerType, setTimerType] = useState(focus)
+    
     const[user, setUser] = useState({
         firstName: '',
         lastName: '',
@@ -31,7 +33,66 @@ function CirilloContextProvider(props) {
     }
 
     function stopTimer() {
-        setStartAnimate(false)
+        if (timerType === focus && round < rounds) {
+            setStartAnimate(false)
+            console.log('Focus time is over!')
+            setTimerType(short)
+            setStartAnimate(true)
+        }
+        else if (timerType === short && round < rounds) {
+            setStartAnimate(false)
+            console.log('Short break is done!')
+            setTimerType(focus)
+            setStartAnimate(true)
+            setRound(round+1)
+        }
+        else if (timerType === focus && round >= rounds) {
+            setStartAnimate(false)
+            console.log('Last focus time is over!')
+            setTimerType(long)
+            setStartAnimate(true)
+        }
+        else {
+            setStartAnimate(false)
+            setRound(1)
+            console.log('Work is done!')
+        }
+    }
+
+    /*function stopTimer() {
+        for (let i=1; i <= rounds; i++) 
+        {
+            console.log(timerType)
+            if (timerType === focus && i < rounds) {
+            setStartAnimate(false)
+            console.log('Focus round is over!')
+            setTimerType(short)
+            setStartAnimate(true)
+            
+            }
+            else if (timerType === focus && i === rounds) {
+            setStartAnimate(false)
+            console.log('Last focus round is over!')
+            setTimerType(long)
+            setStartAnimate(true)
+            }
+            else if (timerType === short) {
+            setStartAnimate(false)
+            console.log('Short round is over!')
+            setTimerType(focus)
+            setStartAnimate(true)
+            }
+            else {
+                setStartAnimate(false)
+                console.log('Your work is done!')
+            }
+            
+        }
+        
+    }*/
+
+    function buttonToHome() {
+        setTimerType(focus)
     }
 
     function setTimerValues(timeValue, a) {
@@ -58,12 +119,12 @@ function CirilloContextProvider(props) {
     function activeTimerValue(value) {
         console.log(value)
         if (value === focus) {
-            setTimerPropValue(focus)
+            setTimerType(focus)
         }
         else if (value === short) {
-            setTimerPropValue(short)
+            setTimerType(short)
         }
-        else setTimerPropValue(long)
+        else setTimerType(long)
     }
 
     function setNewUser(userData, a) {
@@ -105,9 +166,10 @@ function CirilloContextProvider(props) {
             short,
             long,
             rounds,
+            round,
             startAnimate,
             myTimeValues,
-            timerPropValue,
+            timerType,
             user,
             startTimer,
             pauseTimer,
@@ -116,7 +178,8 @@ function CirilloContextProvider(props) {
             consoleMyTimeValues,
             activeTimerValue,
             setNewUser,
-            consoleNewUser
+            consoleNewUser,
+            buttonToHome
         }}
         >
          {props.children}   

@@ -11,7 +11,7 @@ function Homepage() {
     short,
     long,
     activeTimerValue,
-    timerPropValue,
+    timerType,
     startAnimate,
     startTimer,
     pauseTimer
@@ -28,7 +28,8 @@ function Homepage() {
       <div className={styles.container}>
           <div className={styles.contentWrapper}>
         <Timer
-          timer={timerPropValue}
+          timerKey={timerType}
+          timer={timerType}
           animate={startAnimate}
         ></Timer>
         <div className={styles.buttonWrapper}>
@@ -50,6 +51,7 @@ function Homepage() {
               buttonStyle={'secondary'}
               myFunction={() => handleClick(short)}
               >short break</Button>
+              
             <Button 
               buttonStyle={'secondary'}
               myFunction={() => handleClick(long)}
