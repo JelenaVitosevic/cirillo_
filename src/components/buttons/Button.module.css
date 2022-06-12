@@ -12,27 +12,36 @@
 }
 
 .primary {
-    background-color: #eee2df;
+    background-color: #b79492;
+    color: #eee2df ;
+    border: 0.5px solid #eee2df;
     border-radius: 20px;
     padding: 10px 40px;
     width: 100%;
+    font-weight: 500;
 }
 
 .primary:hover {
-    background-color: #b79492;
-    color: #eee2df;
+    background-color: #eee2df;
+    color: #b79492;
+    border: 0.5px solid #b79492;
 }
 
 .secondary {
-    background-color: #b79492;
+    background-color: #eee2df;
+    color: #b79492;
+    border: 0.5px solid #b79492;
     border-radius: 50%;
     height: 100px;
     width: 100px;
+    font-weight: 500;
+
 }
 
 .secondary:hover {
-    background-color: #eee2df;
-    border: 2px solid #b79492;
+    background-color: #b79492;
+    color: #eee2df;
+    border: 2px solid #eee2df;
 }
 
 .submit {
@@ -43,7 +52,7 @@
     padding: 10px 40px;
     width: 100%;
     font-size: 15px;
-    font-weight: 600   ;
+    font-weight: 600;
 }
 
 .submit:hover {

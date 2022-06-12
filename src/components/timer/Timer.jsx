@@ -31,7 +31,7 @@ function Timer({timer, animate, timerKey}) {
         duration = {timer * 60}
         colors={[['#b79492'], ['#blue']]}
         strokeWidth={6}
-        size={220}
+        size={200}
         trailColor='#eee2df'
         onComplete={ () => {
             stopTimer()

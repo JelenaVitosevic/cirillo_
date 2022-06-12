@@ -22,8 +22,9 @@
 
 .logo {
     text-decoration: none;
-    color: black;
-    font-family: 'Concert One', cursive;
+    color: rgb(90, 70, 70);;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 600;   
     font-size: 30px;
     align-items: center;
 }
@@ -34,7 +35,7 @@
 
 .logoIcon {
     font-size: 40px;
-    color: black;
+    color: rgb(90, 70, 70);;
 }
 
 .headerList {
@@ -48,12 +49,12 @@
 }
 
 .navIconLink {
-    color: black;
+    color: rgb(90, 70, 70);;
 }
 
 .navIcon {
     font-size: 30px;
-    color: black;
+    color: rgb(90, 70, 70);
 }
 
 .navIcon:hover {
