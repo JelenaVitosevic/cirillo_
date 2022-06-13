@@ -5,9 +5,9 @@ function CirilloContextProvider(props) {
     const[focus, setFocus] = useState(25)
     const[short, setShort] = useState(5)
     const[long, setLong] = useState(15)
-    const[rounds, setRounds] = useState(4)
-    const[round, setRound] = useState(1)
-    const[startAnimate, setStartAnimate] = useState(false)
+    const[rounds, setRounds] = useState(4)  //number of rounds
+    const[round, setRound] = useState(1)  //current round
+    const[isAnimate, setIsAnimate] = useState(false)
     const[timerType, setTimerType] = useState(focus)
     const[timerText, setTimerText] = useState('focus time')
     const[roundText, setRoundText] = useState('round 1')
@@ -29,39 +29,39 @@ function CirilloContextProvider(props) {
     }
 
     function startTimer() {
-        setStartAnimate(true)
+        setIsAnimate(true)
     }
 
     function pauseTimer() {
-        setStartAnimate(false)
+        setIsAnimate(false)
     }
 
     function stopTimer() {
         if (timerType === focus && round < rounds) {
-            setStartAnimate(false)
+            setIsAnimate(false)
             console.log('Focus time is over!')
             setTimerType(short)
             setTimerText('short break')
-            setStartAnimate(true)
+            setIsAnimate(true)
         }
         else if (timerType === short && round < rounds) {
-            setStartAnimate(false)
+            setIsAnimate(false)
             console.log('Short break is done!')
             setTimerType(focus)
             setTimerText('focus time')
             setRoundText(`round ${round+1}`)
-            setStartAnimate(true)
+            setIsAnimate(true)
             setRound(round+1)
         }
         else if (timerType === focus && round >= rounds) {
-            setStartAnimate(false)
+            setIsAnimate(false)
             console.log('Last focus time is over!')
             setTimerType(long)
             setTimerText('long break')
-            setStartAnimate(true)
+            setIsAnimate(true)
         }
         else {
-            setStartAnimate(false)
+            setIsAnimate(false)
             setRound(1)
             setTimerText('work is done')
             setRoundText('')
@@ -103,6 +103,10 @@ function CirilloContextProvider(props) {
 
     function buttonToHome() {
         setTimerType(focus)
+        setRound(1)
+        setRoundText('round 1')
+        setTimerText('focus time')
+        
     }
 
     function setTimerValues(timeValue, a) {
@@ -199,7 +203,7 @@ function CirilloContextProvider(props) {
             long,
             rounds,
             round,
-            startAnimate,
+            isAnimate,
             myTimeValues,
             timerType,
             user,

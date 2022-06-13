@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Header.module.css';
-import { FaRegClock, FaUserAlt, FaRegChartBar, FaCog } from 'react-icons/fa';
+import { FaUserAlt, FaRegChartBar, FaCog } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 

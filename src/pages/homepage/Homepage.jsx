@@ -14,9 +14,10 @@ function Homepage() {
     timerType,
     timerText,
     roundText,
-    startAnimate,
+    isAnimate,
     startTimer,
-    pauseTimer
+    pauseTimer,
+    buttonToHome
   } = useContext(CirilloContext)
 
   function handleClick(value) {
@@ -32,7 +33,7 @@ function Homepage() {
         <Timer
           timerKey={timerType}
           timer={timerType}
-          animate={startAnimate}
+          animate={isAnimate}
           text1={timerText}
           text2={roundText}
         ></Timer>
@@ -45,6 +46,10 @@ function Homepage() {
               buttonStyle={'primary'}
               myFunction={pauseTimer}
               >pause</Button>
+              <Button 
+              buttonStyle={'primary'} 
+              myFunction={buttonToHome}
+              >reset</Button>
           </div>
           <div className={styles.circleButtonWrapper}>
             <Button 
