@@ -17,7 +17,7 @@ function Homepage() {
     isAnimate,
     startTimer,
     pauseTimer,
-    buttonToHome
+    resetTimer
   } = useContext(CirilloContext)
 
   function handleClick(value) {
@@ -48,7 +48,7 @@ function Homepage() {
               >pause</Button>
               <Button 
               buttonStyle={'primary'} 
-              myFunction={buttonToHome}
+              myFunction={resetTimer}
               >reset</Button>
           </div>
           <div className={styles.circleButtonWrapper}>

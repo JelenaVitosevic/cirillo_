@@ -37,7 +37,6 @@
     border: 2px solid #b79492;
     line-height: 30px;
     border-radius: 10px;
-    width: 120%;
     text-align: center;
     font-family: 'Montserrat Alternates', sans-serif;
     font-weight: 500;
@@ -55,6 +54,8 @@
 
 .message {
     font-weight: 400;
-    font-size: 0.875rem;
+    font-size: 11px;
     color: rgb(177, 0, 0);
+    text-align: center;
+    width: 100%;
 }
