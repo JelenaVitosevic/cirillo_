@@ -9,7 +9,7 @@ function Header() {
     <header className={styles.header}>
       <div className={styles.wrapper}>
         <div className={styles.logoContainer}>
-            <FaRegClock className={styles.logoIcon}/>
+            <img src="./cirillo.png" className={styles.img} alt="" />
             <Link to="/" className={styles.logo}>cirillo</Link>
         </div>
         <nav className={styles.headerNav}>
