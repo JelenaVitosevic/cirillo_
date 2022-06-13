@@ -1,6 +1,8 @@
 .timerWrapper {
     text-align: center;
     align-items: center;
+    /*background-color: #eee2df;*/
+    border-radius: 50%
 }
 
 .time {
@@ -8,4 +10,12 @@
     font-weight: 600;
     font-family: 'Montserrat Alternates', sans-serif;
     font-size: 60px;
+}
+
+.text {
+    color: #b79492;
+    font-weight: 600;
+    font-size: larger;
+    font-family: 'Montserrat Alternates', sans-serif;
+    text-transform: uppercase;
 }

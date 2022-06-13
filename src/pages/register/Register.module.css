@@ -17,7 +17,6 @@
     width: 40%;
     border: 2px solid #b79492;
     border-radius: 20px;
-
     padding: 3%;
     background-color: #eee2df;
 }
@@ -45,4 +44,17 @@
     color: #b79492;
     resize: none;
     outline: none;
+}
+
+::placeholder {
+    color: #b79492;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+.message {
+    font-weight: 400;
+    font-size: 0.875rem;
+    color: rgb(177, 0, 0);
 }

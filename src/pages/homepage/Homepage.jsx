@@ -12,6 +12,8 @@ function Homepage() {
     long,
     activeTimerValue,
     timerType,
+    timerText,
+    roundText,
     startAnimate,
     startTimer,
     pauseTimer
@@ -31,6 +33,8 @@ function Homepage() {
           timerKey={timerType}
           timer={timerType}
           animate={startAnimate}
+          text1={timerText}
+          text2={roundText}
         ></Timer>
         <div className={styles.buttonWrapper}>
             <Button 

@@ -3,7 +3,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { CirilloContext } from '../../context/CirilloContext';
 import { useContext } from 'react';
 
-function Timer({timer, animate, timerKey}) {
+function Timer({timer, animate, timerKey, text1, text2}) {
     const {stopTimer} = useContext(CirilloContext)
 
     function renderTime({remainingTime}) {
@@ -16,8 +16,12 @@ function Timer({timer, animate, timerKey}) {
             seconds = '0' + seconds
         }
         return (
-            <div className={styles.time}>
-                {`${minutes}:${seconds}`}
+            <div className={styles.tiimerContent}>
+                <div className={styles.text}>{text1}</div>
+                <div className={styles.time}>
+                    {`${minutes}:${seconds}`}
+                </div>
+                <div className={styles.text}>{text2}</div>
             </div>
         )
     }
@@ -31,7 +35,7 @@ function Timer({timer, animate, timerKey}) {
         duration = {timer * 60}
         colors={[['#b79492'], ['#blue']]}
         strokeWidth={6}
-        size={200}
+        size={220}
         trailColor='#eee2df'
         onComplete={ () => {
             stopTimer()

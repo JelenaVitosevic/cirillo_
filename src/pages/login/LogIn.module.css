@@ -40,6 +40,13 @@
     outline: none;
 }
 
+::placeholder {
+    color: #b79492;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+}
+
 .registerWrapper {
     width: 40%;
     text-align: center;

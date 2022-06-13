@@ -9,9 +9,9 @@ function LogIn() {
     <div className={styles.contentWrapper}>
       <form noValidate className={styles.form}>
         <label htmlFor="email"  className={styles.label}>Email:</label>
-        <input type="text" id='email' name='email' className={styles.input}/>
+        <input type="text" id='email' name='email' placeholder='Enter your email' className={styles.input}/>
         <label htmlFor="password"  className={styles.label}>Password:</label>
-        <input type="text" id='password' name='password' className={styles.input}/>
+        <input type="text" id='password' name='password' placeholder='Enter your password' className={styles.input}/>
         <Button buttonStyle={'submit'} type='button'>Log in</Button>
       </form> 
     </div>

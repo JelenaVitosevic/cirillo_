@@ -9,6 +9,8 @@ function CirilloContextProvider(props) {
     const[round, setRound] = useState(1)
     const[startAnimate, setStartAnimate] = useState(false)
     const[timerType, setTimerType] = useState(focus)
+    const[timerText, setTimerText] = useState('focus time')
+    const[roundText, setRoundText] = useState('round 1')
     
     const[user, setUser] = useState({
         firstName: '',
@@ -16,6 +18,8 @@ function CirilloContextProvider(props) {
         email: '',
         password: '',
     })
+    const [message, setMessage] = useState('');
+
 
     let myTimeValues = {
         focusTime: parseInt(focus),
@@ -37,12 +41,15 @@ function CirilloContextProvider(props) {
             setStartAnimate(false)
             console.log('Focus time is over!')
             setTimerType(short)
+            setTimerText('short break')
             setStartAnimate(true)
         }
         else if (timerType === short && round < rounds) {
             setStartAnimate(false)
             console.log('Short break is done!')
             setTimerType(focus)
+            setTimerText('focus time')
+            setRoundText(`round ${round+1}`)
             setStartAnimate(true)
             setRound(round+1)
         }
@@ -50,11 +57,14 @@ function CirilloContextProvider(props) {
             setStartAnimate(false)
             console.log('Last focus time is over!')
             setTimerType(long)
+            setTimerText('long break')
             setStartAnimate(true)
         }
         else {
             setStartAnimate(false)
             setRound(1)
+            setTimerText('work is done')
+            setRoundText('')
             console.log('Work is done!')
         }
     }
@@ -120,12 +130,26 @@ function CirilloContextProvider(props) {
         console.log(value)
         if (value === focus) {
             setTimerType(focus)
+            setTimerText('focus time')
         }
         else if (value === short) {
             setTimerType(short)
+            setTimerText('short break')
         }
-        else setTimerType(long)
-    }
+        else {
+            setTimerType(long)
+            setTimerText('long break')
+    }}
+
+    function checkEmail() {
+        let pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        let email = user.email
+        if(pattern.test(email)) {
+          return email && setMessage('')
+        } else {
+          setMessage("Email adress is not valid!")
+        }
+      }
 
     function setNewUser(userData, a) {
 
@@ -146,6 +170,7 @@ function CirilloContextProvider(props) {
                 ...user,
                 email: a
             })
+            checkEmail()
         }
         else{
             setUser({
@@ -155,8 +180,15 @@ function CirilloContextProvider(props) {
         }
     }
 
-    function consoleNewUser() {
-        console.log(user)
+    function Register() {
+        if (message === "Email adress is not valid!") {
+            setUser({})
+            console.log('Failed refistration! Please try again!')
+        }
+        else {
+            console.log(user)
+            setUser({})
+        }
     }
  
     return (
@@ -171,6 +203,9 @@ function CirilloContextProvider(props) {
             myTimeValues,
             timerType,
             user,
+            message,
+            timerText,
+            roundText,
             startTimer,
             pauseTimer,
             stopTimer,
@@ -178,8 +213,9 @@ function CirilloContextProvider(props) {
             consoleMyTimeValues,
             activeTimerValue,
             setNewUser,
-            consoleNewUser,
-            buttonToHome
+            Register,
+            buttonToHome,
+            checkEmail
         }}
         >
          {props.children}   
