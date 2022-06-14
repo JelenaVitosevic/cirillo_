@@ -33,7 +33,12 @@
     color: #b79492;
 }
 
+.inputWrapper {
+    width: 100%;
+}
+
 .input {
+    width: 100%;
     border: 2px solid #b79492;
     line-height: 30px;
     border-radius: 10px;

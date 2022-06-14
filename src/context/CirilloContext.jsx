@@ -167,7 +167,7 @@ function CirilloContextProvider(props) {
         if(pattern.test(password)) {
           return password && setPasswordMessage('')
         } else {
-          setPasswordMessage("Password is not valid!")
+          setPasswordMessage("Password must contain minimum 8 characters - digits, uppercases and lowercases!")
         }
     }
 

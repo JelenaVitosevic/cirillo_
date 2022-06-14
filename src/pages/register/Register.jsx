@@ -29,28 +29,32 @@ function Register() {
           >
             First name:
           </label>
-          <input 
-            type="text" 
-            id='firstName' 
-            name='firstName' 
-            placeholder='Enter your first name' 
-            className={styles.input}
-            onChange={(e) => setNewUser('firstName', e.target.value)} 
-          />
+          <div className={styles.inputWrapper}>
+            <input 
+              type="text" 
+              id='firstName' 
+              name='firstName' 
+              placeholder='Enter your first name' 
+              className={styles.input}
+              onChange={(e) => setNewUser('firstName', e.target.value)} 
+            />
+          </div>
           <label 
             htmlFor="lastName" 
             className={styles.label}
           >
             Last name:
           </label>
-          <input 
-            type="text" 
-            id='lastName' 
-            name='lastName' 
-            placeholder='Enter your last name' 
-            className={styles.input} 
-            onChange={(e) => setNewUser('lastName', e.target.value)}
-          />
+          <div className={styles.inputWrapper}>
+            <input 
+              type="text" 
+              id='lastName' 
+              name='lastName' 
+              placeholder='Enter your last name' 
+              className={styles.input} 
+              onChange={(e) => setNewUser('lastName', e.target.value)}
+            />
+          </div>
           <label 
             htmlFor="email" 
             className={styles.label}
