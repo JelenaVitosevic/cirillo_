@@ -15,7 +15,6 @@ function App() {
   return (
     
     <Router>
-      <div className={styles.container}>
       <Routes>
         <Route path='/' element={<Homepage/>}></Route>
         <Route path='/login' element={<LogIn/>}></Route>
@@ -24,7 +23,6 @@ function App() {
         <Route path='/register' element={<Register/>}></Route>
         <Route path='*' element={<ErrorPage/>}></Route>
       </Routes>
-    </div>
     </Router>
     
   )
