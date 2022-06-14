@@ -17,33 +17,37 @@ function Timer({timer, animate, timerKey, text1, text2}) {
         }
         return (
             <div className={styles.tiimerContent}>
-                <div className={styles.text}>{text1}</div>
+                <div className={styles.text}>
+                    {text1}
+                </div>
                 <div className={styles.time}>
                     {`${minutes}:${seconds}`}
                 </div>
-                <div className={styles.text}>{text2}</div>
+                <div className={styles.text}>
+                    {text2}
+                </div>
             </div>
         )
     }
 
     return (
         <div className={styles.timerWrapper}>
-        <CountdownCircleTimer
-        key={timerKey}
-        className={styles.timer}
-        isPlaying = {animate}
-        duration = {timer * 60}
-        colors={[['#b79492'], ['#blue']]}
-        strokeWidth={6}
-        size={220}
-        trailColor='#eee2df'
-        onComplete={ () => {
-            stopTimer()
-            } 
-        }
-        >
-            {renderTime}
-        </CountdownCircleTimer>
+            <CountdownCircleTimer
+                key={timerKey}
+                className={styles.timer}
+                isPlaying = {animate}
+                duration = {timer * 60}
+                colors={[['#b79492'], ['#blue']]}
+                strokeWidth={6}
+                size={220}
+                trailColor='#eee2df'
+                onComplete={ () => {
+                    stopTimer()
+                    } 
+                }
+            >
+                {renderTime}
+            </CountdownCircleTimer>
         </div>
     )
 }

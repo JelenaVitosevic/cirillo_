@@ -31,45 +31,56 @@ function Homepage() {
     <Layout>
       <div className={styles.container}>
           <div className={styles.contentWrapper}>
-        <Timer
-          timerKey={timerType}
-          timer={timerType}
-          animate={isAnimate}
-          text1={timerText}
-          text2={roundText}
-        ></Timer>
-        <div className={styles.buttonWrapper}>
-            <Button 
-              buttonStyle={'primary'} 
-              myFunction={startTimer}
-              >start</Button>
-            <Button 
-              buttonStyle={'primary'}
-              myFunction={pauseTimer}
-              >pause</Button>
-              <Button 
-              buttonStyle={'primary'} 
-              myFunction={resetTimer}
-              >reset</Button>
+            <Timer
+              timerKey={timerType}
+              timer={timerType}
+              animate={isAnimate}
+              text1={timerText}
+              text2={roundText}
+            ></Timer>
+            <div className={styles.buttonWrapper}>
+                <Button 
+                  buttonStyle={'primary'} 
+                  myFunction={startTimer}
+                >
+                  start
+                </Button>
+                <Button 
+                  buttonStyle={'primary'}
+                  myFunction={pauseTimer}
+                >
+                  pause
+                </Button>
+                <Button 
+                  buttonStyle={'primary'} 
+                  myFunction={resetTimer}
+                >
+                  reset
+                </Button>
+            </div>
+            <div className={styles.circleButtonWrapper}>
+                <Button 
+                  buttonStyle={'secondary'}
+                  myFunction={() => handleClick(focus)}
+                >
+                  focus
+                </Button>
+                <Button 
+                  buttonStyle={'secondary'}
+                  myFunction={() => handleClick(short)}
+                >
+                  short break
+                </Button> 
+                <Button 
+                  buttonStyle={'secondary'}
+                  myFunction={() => handleClick(long)}
+                >
+                  long break
+                </Button>
+            </div>
           </div>
-          <div className={styles.circleButtonWrapper}>
-            <Button 
-              buttonStyle={'secondary'}
-              myFunction={() => handleClick(focus)}
-              >focus</Button>
-            <Button 
-              buttonStyle={'secondary'}
-              myFunction={() => handleClick(short)}
-              >short break</Button>
-              
-            <Button 
-              buttonStyle={'secondary'}
-              myFunction={() => handleClick(long)}
-              >long break</Button>
-          </div>
-          </div>
-        </div> 
-     </Layout>
+      </div> 
+    </Layout>
   )
 }
 
