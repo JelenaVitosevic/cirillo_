@@ -22,8 +22,8 @@ function CirilloContextProvider(props) {
         email: '',
         password: '',
     })
-    const [emailMessage, setEmailMessage] = useState('');
-    const [passwordMessage, setPasswordMessage] = useState('');
+    const[emailMessage, setEmailMessage] = useState('');
+    const[passwordMessage, setPasswordMessage] = useState('');
 
     
     //a function that is triggered when user types values in settings inputs, to change states for focus, short break, long break and rounds
@@ -171,6 +171,7 @@ function CirilloContextProvider(props) {
         }
     }
 
+    //a function that is triggered when user types values in register inputs, to change state for user object
     function setNewUser(userData, a) {
         if (userData === 'firstName') {
             setUser({
@@ -200,6 +201,7 @@ function CirilloContextProvider(props) {
         }
     }
 
+    //a function that is triggered at the click of a register form submit button, now it just do the console.log, but it is intended to send data to the backend
     function Register() {
         if (emailMessage === "Email adress is not valid!") {
             setUser({})
@@ -237,7 +239,7 @@ function CirilloContextProvider(props) {
             Register,
             resetTimer,
             checkEmail,
-            checkPassword
+            checkPassword,
         }}
         >
          {props.children}   

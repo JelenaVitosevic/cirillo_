@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styles from './Settings.module.css';
 import Button from '../../components/buttons/Button';
 import { CirilloContext } from '../../context/CirilloContext';
-import { Link } from 'react-router-dom';
+import Layout from '../../components/layout/Layout'
 
 function Settings() {
 
@@ -24,6 +24,7 @@ function Settings() {
   }
 
   return (
+   <Layout>
     <div className={styles.container}>
     <div className={styles.contentWrapper}>
       <form noValidate className={styles.form} onSubmit={handleClick}>
@@ -39,6 +40,7 @@ function Settings() {
       </form>
     </div>
     </div>
+   </Layout>
   )
 }
 

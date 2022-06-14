@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Button from '../../components/buttons/Button';
+import Layout from '../../components/layout/Layout';
 import Timer from '../../components/timer/Timer';
 import { CirilloContext } from '../../context/CirilloContext';
 import styles from './Homepage.module.css';
@@ -27,7 +28,7 @@ function Homepage() {
   }
 
   return (
-   
+    <Layout>
       <div className={styles.container}>
           <div className={styles.contentWrapper}>
         <Timer
@@ -68,6 +69,7 @@ function Homepage() {
           </div>
           </div>
         </div> 
+     </Layout>
   )
 }
 

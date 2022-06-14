@@ -16,7 +16,6 @@ function App() {
     
     <Router>
       <div className={styles.container}>
-    <Header/>
       <Routes>
         <Route path='/' element={<Homepage/>}></Route>
         <Route path='/login' element={<LogIn/>}></Route>
@@ -25,7 +24,6 @@ function App() {
         <Route path='/register' element={<Register/>}></Route>
         <Route path='*' element={<ErrorPage/>}></Route>
       </Routes>
-      <Footer />
     </div>
     </Router>
     

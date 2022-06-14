@@ -1,9 +1,14 @@
 import React from 'react'
 import styles from './Statistic.module.css'
+import Layout from '../../components/layout/Layout'
 
 function Statistic() {
   return (
-    <div className={styles.container}>Statistic page</div>
+    <Layout>
+      <div className={styles.container}>
+        Statistic page
+      </div>
+    </Layout>
   )
 }
 

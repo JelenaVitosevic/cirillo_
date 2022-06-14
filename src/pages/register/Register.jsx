@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import Button from '../../components/buttons/Button';
 import styles from './Register.module.css'
 import { CirilloContext } from '../../context/CirilloContext';
+import Layout from '../../components/layout/Layout';
 
 
 
@@ -15,6 +16,7 @@ function Register() {
   }
 
   return (
+   <Layout>
     <div className={styles.container}>
       <pre className={styles.user}>{JSON.stringify(user)}</pre>
     <div className={styles.contentWrapper}>
@@ -37,6 +39,7 @@ function Register() {
       </form>  
     </div>
     </div>
+   </Layout>
   )
 }
 

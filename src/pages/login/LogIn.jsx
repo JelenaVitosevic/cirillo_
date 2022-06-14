@@ -2,9 +2,11 @@ import React from 'react'
 import styles from './LogIn.module.css'
 import Button from '../../components/buttons/Button';
 import { Link } from 'react-router-dom';
+import Layout from '../../components/layout/Layout';
 
 function LogIn() {
   return (
+   <Layout>
     <div className={styles.container}>
     <div className={styles.contentWrapper}>
       <form noValidate className={styles.form}>
@@ -20,6 +22,7 @@ function LogIn() {
       <Link to='/register' className={styles.link}>Register now</Link>
     </div>
     </div>
+   </Layout>
   )
 }
 
