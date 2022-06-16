@@ -1,12 +1,26 @@
 const Joi = require('joi');
+const { joiPassword } = require('joi-password');
+
 const express = require('express');
 const app = express();
 
 app.use(express.json());
 
 const users = [
-    { id:1, firstName:'Jelena', lastName: 'Vitosevic', email: 'vitosevicjelena83997@gmail.com', password: 'dejaVOLIjecu1' },
-    { id:2, name:'Dejan', lastName: 'Arsic', email: 'arsicdejan996@gmail.com', password: 'jecaVoliDeju2' },
+    { 
+        id:1, 
+        firstName:'Jelena', 
+        lastName: 'Vitosevic', 
+        email: 'vitosevicjelena83997@gmail.com', 
+        password: 'dejaVOLIjecu1' 
+    },
+    { 
+        id:2, 
+        name:'Dejan', 
+        lastName: 'Arsic', 
+        email: 'arsicdejan996@gmail.com', 
+        password: 'jecaVoliDeju2' 
+    }
 ]
 
 app.get('/', (req, res) => {
@@ -22,9 +36,15 @@ app.post('/api/users', (req, res) => {
                         firstName: Joi.string().min(3).required(),
                         lastName: Joi.string().required(),
                         email: Joi.string().min(6).required().email(),
-                        password: Joi.string().required().pattern(new RegExp('^[a-zA-Z0-9]{3,20}$')),
+                        password: joiPassword
+                                    .string()
+                                    .minOfSpecialCharacters(1)
+                                    .minOfLowercase(1)
+                                    .minOfUppercase(1)
+                                    .minOfNumeric(1)
+                                    .noWhiteSpaces()
+                                    .required(),
                     })
-        //name: Joi.string().min(3).required()
 
     const result = schema.validate(req.body);
     console.log(result)
@@ -32,9 +52,6 @@ app.post('/api/users', (req, res) => {
         res.status(404).send(result.error.details[0].message)
         return;
     }
-        /*res.status(404).send('Name is required and should be minimum 3 characters.')
-        return;
-    }*/
 
     const user = {
         id: users.length + 1,
@@ -47,9 +64,15 @@ app.post('/api/users', (req, res) => {
     res.send(user)
 })
 
-app.get('/api/users/:id', (req, res) => {
+/*app.get('/api/users/:id', (req, res) => {
     const user = users.find(c => c.id === parseInt(req.params.id))
     if (!user) res.status(404).send('The user with the given ID was not found!')
+    res.send(user)
+})*/
+
+app.get('/api/users/:email', (req, res) => {
+    const user = users.find(c => c.email === req.params.email)
+    if (!user) res.status(404).send('The user with the given email was not found!')
     res.send(user)
 })
 
