@@ -6,36 +6,30 @@ const app = express();
 
 app.use(express.json());
 
-const users = [
-    { 
-        id:1, 
-        firstName:'Jelena', 
-        lastName: 'Vitosevic', 
-        email: 'vitosevicjelena83997@gmail.com', 
-        password: 'dejaVOLIjecu1' 
-    },
-    { 
-        id:2, 
-        name:'Dejan', 
-        lastName: 'Arsic', 
-        email: 'arsicdejan996@gmail.com', 
-        password: 'jecaVoliDeju2' 
-    }
-]
+const users = [];
 
 app.get('/', (req, res) => {
     res.send('Hello Dejo!')
 })
 
-app.get('/api/users', (req, res) => {
+app.get('/register', (req, res) => {
     res.send(users);
 })
 
-app.post('/api/users', (req, res) => {
+app.post('/register', (req, res) => {
+    /*const checkEmail = async () => { 
+        const newEmail = await req.body.email 
+        for (let i=0; i<users.length; i++) {
+            if (newEmail === users[i].email) {
+                throw new Error('Email allready exist!')
+            }
+        }
+    }*/
+
     const schema = Joi.object({
                         firstName: Joi.string().min(3).required(),
                         lastName: Joi.string().required(),
-                        email: Joi.string().min(6).required().email(),
+                        email: Joi.string().min(6).required().email(),//.external(checkEmail),
                         password: joiPassword
                                     .string()
                                     .minOfSpecialCharacters(1)
@@ -46,7 +40,7 @@ app.post('/api/users', (req, res) => {
                                     .required(),
                     })
 
-    const result = schema.validate(req.body);
+    const result = schema.validate(req.body)//validateAsync(req.body);
     console.log(result)
     if (result.error) {
         res.status(404).send(result.error.details[0].message)
