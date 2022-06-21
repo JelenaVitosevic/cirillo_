@@ -61,12 +61,13 @@ if (result.error) {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        tasks: []
     }
     
     
     users.push(user);
-        res.send(user);  
+    res.send(user);  
 })
 
 app.post('/login', (req, res) => {
@@ -102,9 +103,43 @@ app.post('/login', (req, res) => {
                 res.status(401).send('You entered incorect password! Try again!')
             }
         }
-        
-        
+        //vidi sa Dejom kako ovo da se sredi
     }
+})
+
+app.post('/tasks', (req, res) => {
+    
+    const schema = Joi.object({
+        name: Joi.string().required(),
+        time: Joi.number().required(),
+        status: Joi.required(),
+        userEmail: Joi.required()
+    })
+
+    const result = schema.validate(req.body)
+    console.log(result)
+
+    if (result.error) {
+        res.status(404).send(result.error.details[0].message)
+        return;
+    }
+
+    const userEmail = req.body.userEmail;
+
+    const task = {
+        name: req.body.name,
+        time: req.body.time,
+        status: req.body.status
+    }
+
+    for (let i=0; i<users.length; i++) {
+        if (userEmail === users[i].email) {
+            task.id = users[i].tasks.length + 1;
+            users[i].tasks.push(task)
+        }
+    }
+
+    res.send(users)
 })
 
 const port = process.env.PORT || 5000
