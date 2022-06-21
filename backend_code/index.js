@@ -91,23 +91,25 @@ app.post('/login', (req, res) => {
         password: req.body.password
     }
     console.log(loginUser)
-    
-    for (i=0; i<users.length; i++) {
-        console.log(users[i].email)
-        console.log(req.body.email)
 
-        if (req.body.email === users[i].email) {
-            if (hash(req.body.password) === users[i].password) {
-                res.status(200).send('Welcome ' + users[i].firstName + ' ' + users[i].lastName + '!' +' You are loged in!')
-                console.log(users[i].email + 'true')
-
-            }
-            else {
-                res.status(401).send('You entered incorect password! Try again!')
-            }
+    let checkedUser = users.find(user => {
+        if (req.body.email === user.email) {
+            return user
         }
-        //vidi sa Dejom kako ovo da se sredi
+        else return null
+    })
+
+    if(checkedUser) {
+        if (hash(req.body.password) === checkedUser.password) {
+            res.status(200).send('Welcome ' + checkedUser.firstName + ' ' + checkedUser.lastName + '!' +' You are loged in!')
+        }
+        else {
+            res.status(401).send('You entered incorect password! Try again!')
+        }
     }
+    else {
+        res.status(401).send('You entered incorect email! Try again!')
+    } 
 })
 
 app.post('/tasks', (req, res) => {
