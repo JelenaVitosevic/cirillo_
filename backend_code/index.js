@@ -137,11 +137,19 @@ app.post('/tasks', (req, res) => {
         status: req.body.status
     }
 
-    for (let i=0; i<users.length; i++) {
-        if (userEmail === users[i].email) {
-            task.id = users[i].tasks.length + 1;
-            users[i].tasks.push(task)
+    let checkedUser = users.find(user => {
+        if (userEmail === user.email) {
+            return user
         }
+        else return null
+    })
+
+    if(checkedUser) {
+        task.id = checkedUser.tasks.length + 1;
+        checkedUser.tasks.push(task)
+    } 
+    else {
+        res.status(401).send('User not found!')
     }
 
     res.send(users)
