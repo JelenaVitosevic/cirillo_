@@ -14,7 +14,7 @@ function hash(string) {
 
 const users = [];
 
-//let errorMessage = ''
+let errorMessage = ''
 
 app.get('/', (req, res) => {
     res.send('Jecin API')
@@ -25,19 +25,22 @@ app.get('/register', (req, res) => {
 })
 
 app.post('/register', (req, res) => {
-    /*const checkEmail = async () => { 
-        const newEmail = await req.body.email 
-        for (let i=0; i<users.length; i++) {
-            if (newEmail === users[i].email) {
-                errorMessage = "email is not valid"
-            }
+    
+    let checkedUserEmail = users.find(user => {
+        if (req.body.email === user.email) {
+            return user
         }
-    }*/
+        else return null
+    })
+    if(checkedUserEmail) {
+        errorMessage = "User with this email already exist!";
+    }
+    else errorMessage = ""
 
     const schema = Joi.object({
         firstName: Joi.string().min(3).required(),
         lastName: Joi.string().required(),
-        email: Joi.string().min(6).required().email(),//.external(checkEmail),
+        email: Joi.string().min(6).required().email(),
         password: joiPassword
                     .string()
                     .minOfSpecialCharacters(1)
@@ -48,17 +51,17 @@ app.post('/register', (req, res) => {
                     .required(),
     })
 
-const result = schema.validate(req.body)//validateAsync(req.body);
+const result = schema.validate(req.body)
 console.log(result)
 
 if (result.error) {
         res.status(404).send(result.error.details[0].message)
         return;
     }
-/*else if (errorMessage) {
+else if (errorMessage) {
        res.status(404).send(errorMessage)
-    }*/ 
-
+    }
+else {
     const user = {
         id: users.length + 1,
         firstName: req.body.firstName,
@@ -67,10 +70,9 @@ if (result.error) {
         password: hash(req.body.password),
         tasks: []
     }
-    
-    
-    users.push(user);
-    res.send(user);  
+    users.push(user)
+    res.send(user)
+} 
 })
 
 app.post('/login', (req, res) => {
