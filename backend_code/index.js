@@ -23,6 +23,8 @@ app.get('/register', (req, res) => {
     res.send(users);
 })
 
+
+//HTTP POST REGISTER REQUEST  
 app.post('/register', (req, res) => {
 
     let errorMessage = ''
@@ -52,17 +54,17 @@ app.post('/register', (req, res) => {
                     .required(),
     })
 
-const result = schema.validate(req.body)
+    const result = schema.validate(req.body)
 
-if (result.error) {
+    if (result.error) {
         res.status(400).send(result.error.details[0].message)
         return;
     }
-else if (errorMessage) {
-       res.status(400).send(errorMessage)
+    else if (errorMessage) {
+        res.status(400).send(errorMessage)
     }
-else {
-    const user = {
+    else {
+        const user = {
         id: users.length + 1,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -72,10 +74,13 @@ else {
     }
     users.push(user)
     res.status(201).send(user)
-} 
-})
+    } 
+    })
 
+
+//HTTP POST LOGIN REQUEST    
 app.post('/login', (req, res) => {
+
     const schema = Joi.object({
         email: Joi.required(),
         password: joiPassword.required(),
@@ -87,10 +92,10 @@ app.post('/login', (req, res) => {
     return;
     }
 
-    const loginUser = {
+    /*const loginUser = {
         email: req.body.email,
         password: req.body.password
-    }
+    }*/
 
     let checkedUser = users.find(user => {
         if (req.body.email === user.email) {
@@ -114,6 +119,8 @@ app.post('/login', (req, res) => {
     } 
 })
 
+
+//HTTP POST LOGIN REQUEST    
 app.post('/tasks', (req, res) => {
     
     const schema = Joi.object({
@@ -157,9 +164,7 @@ app.post('/tasks', (req, res) => {
     } 
     else {
         res.status(401).send('The user with the email you entered was not found!')
-    }
-
-    
+    }    
 })
 
 const port = process.env.PORT || 5000
