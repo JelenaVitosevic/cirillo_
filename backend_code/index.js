@@ -11,10 +11,7 @@ function hash(string) {
     return createHash('sha256').update(string).digest('hex');
   }
 
-
 const users = [];
-
-let errorMessage = ''
 
 app.get('/', (req, res) => {
     res.send('Jecin API')
@@ -25,6 +22,8 @@ app.get('/register', (req, res) => {
 })
 
 app.post('/register', (req, res) => {
+
+    let errorMessage = ''
     
     let checkedUserEmail = users.find(user => {
         if (req.body.email === user.email) {
