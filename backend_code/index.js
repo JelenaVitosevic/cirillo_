@@ -54,11 +54,11 @@ const result = schema.validate(req.body)
 console.log(result)
 
 if (result.error) {
-        res.status(404).send(result.error.details[0].message)
+        res.status(400).send(result.error.details[0].message)
         return;
     }
 else if (errorMessage) {
-       res.status(404).send(errorMessage)
+       res.status(400).send(errorMessage)
     }
 else {
     const user = {
@@ -70,7 +70,7 @@ else {
         tasks: []
     }
     users.push(user)
-    res.send(user)
+    res.status(201).send(user)
 } 
 })
 
@@ -83,7 +83,7 @@ app.post('/login', (req, res) => {
 
     const result = schema.validate(req.body);
     if (result.error) {
-    res.status(404).send(result.error.details[0].message)
+    res.status(400).send(result.error.details[0].message)
     return;
     }
 
@@ -126,7 +126,7 @@ app.post('/tasks', (req, res) => {
     console.log(result)
 
     if (result.error) {
-        res.status(404).send(result.error.details[0].message)
+        res.status(400).send(result.error.details[0].message)
         return;
     }
 
@@ -148,12 +148,13 @@ app.post('/tasks', (req, res) => {
     if(checkedUser) {
         task.id = checkedUser.tasks.length + 1;
         checkedUser.tasks.push(task)
+        res.status(201).send(users)
     } 
     else {
         res.status(401).send('User not found!')
     }
 
-    res.send(users)
+    
 })
 
 const port = process.env.PORT || 5000
