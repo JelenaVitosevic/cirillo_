@@ -13,6 +13,8 @@ function hash(string) {
 
 const users = [];
 
+const loginUsers = [];
+
 app.get('/', (req, res) => {
     res.send('Jecin API')
 })
@@ -51,7 +53,7 @@ app.post('/register', (req, res) => {
     })
 
 const result = schema.validate(req.body)
-console.log(result)
+//console.log(result)
 
 if (result.error) {
         res.status(400).send(result.error.details[0].message)
@@ -75,7 +77,6 @@ else {
 })
 
 app.post('/login', (req, res) => {
-    console.log(req)
     const schema = Joi.object({
         email: Joi.required(),
         password: joiPassword.required(),
@@ -91,7 +92,6 @@ app.post('/login', (req, res) => {
         email: req.body.email,
         password: req.body.password
     }
-    console.log(loginUser)
 
     let checkedUser = users.find(user => {
         if (req.body.email === user.email) {
@@ -102,6 +102,8 @@ app.post('/login', (req, res) => {
 
     if(checkedUser) {
         if (hash(req.body.password) === checkedUser.password) {
+            loginUsers.push(checkedUser)
+            console.log(loginUsers)
             res.status(200).send('Welcome ' + checkedUser.firstName + ' ' + checkedUser.lastName + '!' +' You are loged in!')
         }
         else {
@@ -145,7 +147,7 @@ app.post('/tasks', (req, res) => {
         else return null
     })
 
-    if(checkedUser) {
+    if(checkedUser && loginUsers.includes(checkedUser)) {
         task.id = checkedUser.tasks.length + 1;
         checkedUser.tasks.push(task)
         res.status(201).send(users)
