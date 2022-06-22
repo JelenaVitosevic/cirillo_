@@ -53,7 +53,6 @@ app.post('/register', (req, res) => {
     })
 
 const result = schema.validate(req.body)
-//console.log(result)
 
 if (result.error) {
         res.status(400).send(result.error.details[0].message)
@@ -125,7 +124,6 @@ app.post('/tasks', (req, res) => {
     })
 
     const result = schema.validate(req.body)
-    console.log(result)
 
     if (result.error) {
         res.status(400).send(result.error.details[0].message)
@@ -147,13 +145,18 @@ app.post('/tasks', (req, res) => {
         else return null
     })
 
-    if(checkedUser && loginUsers.includes(checkedUser)) {
-        task.id = checkedUser.tasks.length + 1;
-        checkedUser.tasks.push(task)
-        res.status(201).send(users)
+    if(checkedUser) {
+        if (loginUsers.includes(checkedUser)) {
+            task.id = checkedUser.tasks.length + 1;
+            checkedUser.tasks.push(task)
+            res.status(201).send(users)
+        }
+        else {
+            res.status(401).send('You must be logged in to add tasks!')
+        }
     } 
     else {
-        res.status(401).send('User not found!')
+        res.status(401).send('The user with the email you entered was not found!')
     }
 
     
