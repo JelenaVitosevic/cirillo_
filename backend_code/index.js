@@ -167,5 +167,36 @@ app.post('/tasks', (req, res) => {
     }    
 })
 
+
+//HTTP GET TASK REQUEST 
+app.get('/tasks/:email/:id', (req, res) => {
+    //res.send(req.params.email + ' task with id:' + req.params.id)
+    let requestedUser = loginUsers.find(loginUser => {
+        if (req.params.email === loginUser.email) {
+            console.log(loginUser)
+            return loginUser
+        }
+    })
+
+   
+        let requestedTask = requestedUser.tasks.find(task => {
+            if (parseInt(req.params.id) === task.id) {
+                console.log(task)
+                return task
+            }
+            else {
+                return null
+            }
+        })
+    
+        if (requestedUser && requestedTask) {
+            res.send(requestedTask)
+        }
+        else {
+            res.status(401).send('The task with the id you entered was not found!')
+        }
+    
+})
+
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`Listening on port ${port}...`))
