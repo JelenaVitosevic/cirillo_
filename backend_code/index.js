@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const Joi = require('joi');
 const { joiPassword } = require('joi-password');
 
@@ -10,6 +12,8 @@ const { createHash } = require('crypto');
 function hash(string) {
     return createHash('sha256').update(string).digest('hex');
   }
+
+let jwt = require("jsonwebtoken");
 
 const users = [];
 
@@ -106,12 +110,31 @@ app.post('/login', (req, res) => {
 
     if(checkedUser) {
         if (hash(req.body.password) === checkedUser.password) {
+            
+            var token = jwt.sign({
+                id: checkedUser.id
+            }, process.env.API_SECRET, {
+                expiresIn: 86400
+            })
+            console.log('TOKEN=' + token )
+            res.status(200).send({
+                checkedUser: {
+                    id: checkedUser.id,
+                    email: checkedUser.email,
+                },
+                message: 'Welcome ' + checkedUser.firstName + ' ' + checkedUser.lastName + '!' +' You are loged in!',
+                accessToken: token,
+            })
+            checkedUser.TOKEN = token
             loginUsers.push(checkedUser)
             console.log(loginUsers)
-            res.status(200).send('Welcome ' + checkedUser.firstName + ' ' + checkedUser.lastName + '!' +' You are loged in!')
         }
         else {
-            res.status(401).send('You entered incorect password! Try again!')
+            console.log('NO TOKEN FOR YOU!')
+            res.status(401).send({
+                accessToken: null,
+                message: 'You entered incorect password! Try again!'
+            })
         }
     }
     else {
@@ -120,7 +143,7 @@ app.post('/login', (req, res) => {
 })
 
 
-//HTTP POST LOGIN REQUEST    
+//HTTP POST TASK REQUEST    
 app.post('/tasks', (req, res) => {
     
     const schema = Joi.object({
