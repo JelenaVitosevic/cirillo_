@@ -169,32 +169,43 @@ app.post('/tasks', (req, res) => {
 
 
 //HTTP GET TASK REQUEST 
-app.get('/tasks/:email/:id', (req, res) => {
-    //res.send(req.params.email + ' task with id:' + req.params.id)
-    let requestedUser = loginUsers.find(loginUser => {
-        if (req.params.email === loginUser.email) {
-            console.log(loginUser)
-            return loginUser
+app.get('/tasks/:email/:password/:id', (req, res) => {
+
+    let requestedTask = loginUsers.find(loginUser => {
+        
+        if (req.params.email === loginUser.email && hash(req.params.password) === loginUser.password) {
+                console.log('ulogovan si')
+                console.log(JSON.stringify(loginUser) + 'GET USER')
+                return (loginUser.tasks.find(task => {
+                    if (parseInt(req.params.id) === task.id) {
+                        console.log(JSON.stringify(task) + "GET TASK")
+                        return task
+                     }
+                 }))
         }
     })
 
-   
-        let requestedTask = requestedUser.tasks.find(task => {
-            if (parseInt(req.params.id) === task.id) {
-                console.log(task)
-                return task
-            }
-            else {
-                return null
-            }
-        })
-    
-        if (requestedUser && requestedTask) {
-            res.send(requestedTask)
+    /*let requestedTask = requestedUser.tasks.find(task => {
+        if (parseInt(req.params.id) === task.id) {
+            console.log(task)
+            return task
+         }
+     })*/
+
+        if (requestedTask) {
+            res.status(200).send(requestedTask)
         }
         else {
-            res.status(401).send('The task with the id you entered was not found!')
+            res.status(401).send('The task was not found!')
         }
+     
+
+     /*if (requestedUser && requestedTask) {
+         res.send(requestedTask)
+     }
+     else {
+          res.status(401).send('The task with the id you entered was not found!')
+     }*/
     
 })
 
