@@ -19,6 +19,7 @@ const users = [];
 
 const loginUsers = [];
 
+
 app.get('/', (req, res) => {
     res.send('Jecin API')
 })
@@ -77,7 +78,7 @@ app.post('/register', (req, res) => {
         tasks: []
     }
     users.push(user)
-    res.status(201).send(user)
+    res.status(201).json(user)
     } 
     })
 
@@ -101,7 +102,7 @@ app.post('/login', (req, res) => {
         password: req.body.password
     }*/
 
-    let checkedUser = users.find(user => {
+     checkedUser = users.find(user => {
         if (req.body.email === user.email) {
             return user
         }
@@ -111,7 +112,7 @@ app.post('/login', (req, res) => {
     if(checkedUser) {
         if (hash(req.body.password) === checkedUser.password) {
             
-            var token = jwt.sign({
+            /*var token = jwt.sign({
                 id: checkedUser.id
             }, process.env.API_SECRET, {
                 expiresIn: 86400
@@ -125,22 +126,40 @@ app.post('/login', (req, res) => {
                 message: 'Welcome ' + checkedUser.firstName + ' ' + checkedUser.lastName + '!' +' You are loged in!',
                 accessToken: token,
             })
-            checkedUser.TOKEN = token
+            checkedUser.TOKEN = token*/
+            const accessToken = jwt.sign(checkedUser, process.env.ACCESS_TOKEN_SECRET)
+            res.status(200).json({accessToken : accessToken})
+            //res.status(200).send('Welcome ' + checkedUser.firstName + ' ' + checkedUser.lastName + '!' +' You are loged in!')
+            checkedUser.TOKEN = accessToken
             loginUsers.push(checkedUser)
             console.log(loginUsers)
         }
         else {
-            console.log('NO TOKEN FOR YOU!')
+            res.status(401).send('You entered incorect password! Try again!')
+            /*console.log('NO TOKEN FOR YOU!')
             res.status(401).send({
                 accessToken: null,
                 message: 'You entered incorect password! Try again!'
-            })
+            })*/
         }
     }
     else {
         res.status(401).send('You entered incorect email! Try again!')
     } 
 })
+
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization']
+    const token = authHeader && authHeader.split(' ')[1] //vraca ili token, ili undefined
+    if (token == null) return res.status(401).send('NO TOKEN, NO ENTRY')
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, checkedUser) => {
+        if (err) return res.sendStatus(403)
+        req.checkedUser = checkedUser
+        console.log(JSON.stringify(checkedUser) + 'AUTH')
+        next()
+    })
+}
 
 
 //HTTP POST TASK REQUEST    
@@ -192,25 +211,9 @@ app.post('/tasks', (req, res) => {
 
 
 //HTTP GET TASK REQUEST 
-app.get('/tasks/:email/:password/:id', (req, res) => {
-
-    let requestedTask = loginUsers.find(loginUser => {
-        if (req.params.email === loginUser.email && hash(req.params.password) === loginUser.password) {
-                return (loginUser.tasks.find(task => {
-                    if (parseInt(req.params.id) === task.id) {
-                        return task
-                        }
-                    }))
-                }
-    })
-
-    if (requestedTask) {
-        res.status(200).send(requestedTask)
-    }
-    else {
-        res.status(401).send('The task was not found!')
-    }
-
+app.get('/tasks/:email/:password/:id', authenticateToken, (req, res) => {
+    //let loginUser = loginUsers.filter(user => user.email === req.params.email)
+    res.send(checkedUser.tasks.filter(task => task.id === parseInt(req.params.id)))
 })
 
 const port = process.env.PORT || 5000
