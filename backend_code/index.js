@@ -110,7 +110,6 @@ app.post('/login', (req, res) => {
             res.status(200).json({accessToken : accessToken})
             checkedUser.TOKEN = accessToken
             loginUsers.push(checkedUser)
-            console.log(loginUsers)
         }
         else {
             res.status(401).send('You entered incorect password! Try again!')
@@ -126,10 +125,9 @@ function authenticateToken(req, res, next) {
     const token = authHeader && authHeader.split(' ')[1] //vraca ili token, ili undefined
     if (token == null) return res.status(401).send('NO TOKEN, NO ENTRY')
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, jeca) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, authUser) => {
         if (err) return res.sendStatus(403)
-        req.jeca = jeca
-        console.log(JSON.stringify(jeca) + 'AUTH')
+        req.authUser = authUser
         next()
     })
 }
@@ -187,14 +185,13 @@ app.post('/tasks', (req, res) => {
 app.get('/tasks/:id', authenticateToken, (req, res) => {
     
     let user = loginUsers.find(user => {
-        if (user.email === req.jeca.email) {
+        if (user.email === req.authUser.email) {
             return user
         }
     })
 
    let task = user.tasks.find(task => {
         if (task.id === parseInt(req.params.id)) {
-            console.log(task + 'blabla')
             return task
         }
    })
@@ -203,7 +200,7 @@ app.get('/tasks/:id', authenticateToken, (req, res) => {
         res.status(200).send(task)
    }
    else {
-        res.status(401).send('The task with the id you entered does not exist!')
+        res.status(401).send('The task with this id does not exist!')
    }
 })
 
