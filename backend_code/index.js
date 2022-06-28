@@ -19,6 +19,8 @@ const users = [];
 
 const loginUsers = [];
 
+let refreshTokens = [];
+
 
 app.get('/', (req, res) => {
     res.send('Jecin API')
@@ -83,6 +85,23 @@ app.post('/register', (req, res) => {
     })
 
 
+//HTTP POST TOKEN REQUEST
+app.post('/token', (req, res) => {
+    const refreshToken = req.body.token
+    if (refreshToken == null) return res.sendStatus(401)
+    if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403)
+        const accessToken = generateAccessToken({ email: user.email })
+        res.json({ accessToken: accessToken })
+    })
+})
+
+
+function generateAccessToken(user) {
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' })
+}
+
 //HTTP POST LOGIN REQUEST    
 app.post('/login', (req, res) => {
 
@@ -106,8 +125,10 @@ app.post('/login', (req, res) => {
 
     if(checkedUser) {
         if (hash(req.body.password) === checkedUser.password) {
-            const accessToken = jwt.sign(checkedUser, process.env.ACCESS_TOKEN_SECRET)
-            res.status(200).json({accessToken : accessToken})
+            const accessToken = generateAccessToken(checkedUser)
+            const refreshToken = jwt.sign(checkedUser, process.env.REFRESH_TOKEN_SECRET)
+            refreshTokens.push(refreshToken)
+            res.status(200).json({accessToken : accessToken, refreshToken : refreshToken})
             checkedUser.TOKEN = accessToken
             loginUsers.push(checkedUser)
         }
@@ -132,6 +153,10 @@ function authenticateToken(req, res, next) {
     })
 }
 
+app.delete('/logout', (req, res) => {
+    refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+    res.sendStatus(204)
+})
 
 //HTTP POST TASK REQUEST    
 app.post('/tasks', authenticateToken, (req, res) => {
