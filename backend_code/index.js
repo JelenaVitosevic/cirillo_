@@ -31,7 +31,7 @@ app.get('/register', (req, res) => {
 })
 
 
-//HTTP POST REGISTER REQUEST  
+//HTTP POST REGISTER  
 app.post('/register', (req, res) => {
 
     let errorMessage = ''
@@ -85,7 +85,7 @@ app.post('/register', (req, res) => {
     })
 
 
-//HTTP POST TOKEN REQUEST
+//HTTP POST TOKEN
 app.post('/token', (req, res) => {
     const refreshToken = req.body.token
     if (refreshToken == null) return res.sendStatus(401)
@@ -98,8 +98,9 @@ app.post('/token', (req, res) => {
 })
 
 
+//FUNCTION GENERATE ACCESS TOKEN
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' })
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5m' })
 }
 
 //HTTP POST LOGIN REQUEST    
@@ -141,6 +142,8 @@ app.post('/login', (req, res) => {
     } 
 })
 
+
+//FUNCTION MIDDLEWARE FOR TOKEN AUTHENTCATION
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1] //vraca ili token, ili undefined
@@ -153,6 +156,7 @@ function authenticateToken(req, res, next) {
     })
 }
 
+//HTTP DELETE - LOG OUT - REMOVES REFRESH TOKEN
 app.delete('/logout', (req, res) => {
     refreshTokens = refreshTokens.filter(token => token !== req.body.token)
     res.sendStatus(204)
@@ -186,7 +190,13 @@ app.post('/tasks', authenticateToken, (req, res) => {
         }
     })
 
-    task.id = loginUser.tasks.length + 1;
+    if (loginUser.tasks.length > 0) {
+        task.id = loginUser.tasks[loginUser.tasks.length - 1].id + 1
+    }
+    else {
+        task.id = loginUser.tasks.length + 1;
+    }
+
     loginUser.tasks.push(task)
     res.status(201).send(loginUser)   
 })
@@ -213,6 +223,28 @@ app.get('/tasks/:id', authenticateToken, (req, res) => {
    else {
         res.status(401).send('The task with this id does not exist!')
    }
+})
+
+
+//HTTP DELETE TASK 
+app.delete('/tasks/delete/:id', authenticateToken, (req, res) => {
+    let user = loginUsers.find(user => {
+        if (user.email === req.authUser.email) {
+            return user
+        }
+    })
+
+    let delTask = user.tasks.find(delTask => {
+        if (delTask.id === parseInt(req.params.id)) {
+            return delTask
+        }
+   })
+
+   if (delTask) {
+      user.tasks = user.tasks.filter(task => task !== delTask)
+      res.send(user)
+   }
+
 })
 
 const port = process.env.PORT || 5000
