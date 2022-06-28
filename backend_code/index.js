@@ -134,13 +134,12 @@ function authenticateToken(req, res, next) {
 
 
 //HTTP POST TASK REQUEST    
-app.post('/tasks', (req, res) => {
+app.post('/tasks', authenticateToken, (req, res) => {
     
     const schema = Joi.object({
         name: Joi.string().required(),
         time: Joi.number().required(),
         status: Joi.required(),
-        userEmail: Joi.required()
     })
 
     const result = schema.validate(req.body)
@@ -150,34 +149,21 @@ app.post('/tasks', (req, res) => {
         return;
     }
 
-    const userEmail = req.body.userEmail;
-
     const task = {
         name: req.body.name,
         time: req.body.time,
         status: req.body.status
     }
 
-    let checkedUser = users.find(user => {
-        if (userEmail === user.email) {
-            return user
+    let loginUser = loginUsers.find(loginUser => {
+        if (loginUser.email === req.authUser.email) {
+            return loginUser
         }
-        else return null
     })
 
-    if(checkedUser) {
-        if (loginUsers.includes(checkedUser)) {
-            task.id = checkedUser.tasks.length + 1;
-            checkedUser.tasks.push(task)
-            res.status(201).send(users)
-        }
-        else {
-            res.status(401).send('You must be logged in to add tasks!')
-        }
-    } 
-    else {
-        res.status(401).send('The user with the email you entered was not found!')
-    }    
+    task.id = loginUser.tasks.length + 1;
+    loginUser.tasks.push(task)
+    res.status(201).send(loginUser)   
 })
 
 
