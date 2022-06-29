@@ -291,5 +291,18 @@ app.delete('/tasks/delete/:id', authenticateToken, (req, res) => {
    }
 })
 
+
+//HTTP GET STATISTIC
+app.get('/stats', authenticateToken, (req, res) => {
+
+    let user = loginUsers.find(user => {
+        if (user.email === req.authUser.email) {
+            return user
+        }
+    })
+
+    res.status(200).send(`Dear ${user.firstName}  ${user.lastName}, the statistic page is still under construction!`)
+})
+
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`Listening on port ${port}...`))
