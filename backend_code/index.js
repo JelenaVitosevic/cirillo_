@@ -162,6 +162,16 @@ app.delete('/logout', (req, res) => {
     res.sendStatus(204)
 })
 
+
+//FUNCTION FOR FINDING LOGIN USER
+function findUser() {
+    loginUsers.find(loginUser => {
+        if (loginUser.email === req.authUser.email) {
+            return loginUser
+        }
+})
+}
+
 //HTTP POST TASK REQUEST    
 app.post('/tasks', authenticateToken, (req, res) => {
     
@@ -226,6 +236,41 @@ app.get('/tasks/:id', authenticateToken, (req, res) => {
 })
 
 
+//HTTP UPDATE TASK
+app.put('/tasks/update/:id', authenticateToken, (req, res) => {
+
+    let user = loginUsers.find(user => {
+        if (user.email === req.authUser.email) {
+            return user
+        }
+    })
+
+    let task = user.tasks.find(task => {
+        if (task.id === parseInt(req.params.id)) {
+            return task
+        }
+   })
+
+   const changedTask = {
+    id: req.body.id,
+    name: req.body.name,
+    time: req.body.time,
+    status: req.body.status
+    }
+
+   if (task) {
+        task = changedTask
+        res.status(200).send(task)
+        console.log(user)
+   }
+   else {
+    res.status(401).send('The task with this id does not exist!')
+   }
+
+
+})
+
+
 //HTTP DELETE TASK 
 app.delete('/tasks/delete/:id', authenticateToken, (req, res) => {
     let user = loginUsers.find(user => {
@@ -244,7 +289,6 @@ app.delete('/tasks/delete/:id', authenticateToken, (req, res) => {
       user.tasks = user.tasks.filter(task => task !== delTask)
       res.send(user)
    }
-
 })
 
 const port = process.env.PORT || 5000
