@@ -1,4 +1,6 @@
 import React, { useState, createContext } from 'react';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 export const CirilloContext = createContext()
 
 function CirilloContextProvider(props) {
@@ -202,16 +204,24 @@ function CirilloContextProvider(props) {
     }
 
     //a function that is triggered at the click of a register form submit button, now it just do the console.log, but it is intended to send data to the backend
-    function Register() {
-        if (emailMessage === "Email adress is not valid!") {
-            setUser({})
-            console.log('Failed refistration! Please try again!')
+    const Register = async () => {
+        try{const res = await axios.post(
+              'http://localhost:5000/register', user,
+              {
+                headers: {
+                    'Content-Type': 'application/json',
+                  },
+              },
+                
+            )
+        console.log(res.data)
         }
-        else {
-            console.log(user)
-            setUser({})
+        
+        catch(error) {
+        console.log(error)  
         }
-    }
+            
+        }
  
     return (
         <CirilloContext.Provider

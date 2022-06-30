@@ -1,4 +1,6 @@
 import React, { useContext } from 'react'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/buttons/Button';
 import styles from './Register.module.css'
 import { CirilloContext } from '../../context/CirilloContext';
@@ -11,9 +13,29 @@ function Register() {
   const { user, setNewUser, Register, emailMessage, passwordMessage } = useContext(CirilloContext)
 
   function handleClick(e) {
-    Register()
+    RegisterInRegisterPage()
     e.preventDefault()
   }
+
+  const navigate = useNavigate()
+  const RegisterInRegisterPage = async () => {
+      try{const res = await axios.post(
+            'http://localhost:5000/register', user,
+            {
+              headers: {
+                  'Content-Type': 'application/json',
+                },
+            },
+              
+          )
+      
+      navigate("/login")}
+      
+      catch(error) {
+      console.log(error)  
+      }
+          
+      }
 
   return (
    <Layout>
