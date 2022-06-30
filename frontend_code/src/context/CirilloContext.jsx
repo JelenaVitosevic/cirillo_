@@ -24,6 +24,10 @@ function CirilloContextProvider(props) {
         email: '',
         password: '',
     })
+    const[logUser, setLogUser] = useState({
+        email: '',
+        password: '',
+    })
     const[emailMessage, setEmailMessage] = useState('');
     const[passwordMessage, setPasswordMessage] = useState('');
 
@@ -222,6 +226,24 @@ function CirilloContextProvider(props) {
         }
             
         }
+
+//login user
+    function setNewLogUser(userData, a) {
+        if (userData === 'email') {
+            setLogUser({
+                ...logUser,
+                email: a
+            })
+            checkEmail()
+        }
+        else {
+            setLogUser({
+                ...logUser,
+                password: a
+            })
+            checkPassword()
+        }
+    }
  
     return (
         <CirilloContext.Provider
@@ -237,6 +259,7 @@ function CirilloContextProvider(props) {
             timerText,
             roundText,
             user,
+            logUser,
             emailMessage,
             passwordMessage,
             startTimer,
@@ -247,6 +270,7 @@ function CirilloContextProvider(props) {
             consoleMyTimeValues,
             activeTimerValue,
             setNewUser,
+            setNewLogUser,
             Register,
             checkEmail,
             checkPassword,
