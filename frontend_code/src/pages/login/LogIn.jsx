@@ -28,6 +28,8 @@ function LogIn() {
               
           )
       console.log(res.data)
+      localStorage.setItem('access token', res.data.accessToken)
+      localStorage.setItem('refresh token', res.data.refreshToken)
       navigate("/")}
       
       catch(error) {
