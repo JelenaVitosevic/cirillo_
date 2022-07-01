@@ -228,7 +228,7 @@ function CirilloContextProvider(props) {
             
         }
 
-    //login user
+    //set logUser
     function setNewLogUser(userData, a) {
         if (userData === 'email') {
             setLogUser({
@@ -246,7 +246,7 @@ function CirilloContextProvider(props) {
         }
     }
 
-    //
+    //login function
     const Login = async (navigate) => {
         try{const res = await axios.post(
               'http://localhost:5000/login', logUser,
