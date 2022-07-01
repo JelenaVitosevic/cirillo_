@@ -12,30 +12,12 @@ function Register() {
 
   const { user, setNewUser, Register, emailMessage, passwordMessage } = useContext(CirilloContext)
 
+  const navigate = useNavigate()
+
   function handleClick(e) {
-    RegisterInRegisterPage()
+    Register(navigate)
     e.preventDefault()
   }
-
-  const navigate = useNavigate()
-  const RegisterInRegisterPage = async () => {
-      try{const res = await axios.post(
-            'http://localhost:5000/register', user,
-            {
-              headers: {
-                  'Content-Type': 'application/json',
-                },
-            },
-              
-          )
-      
-      navigate("/login")}
-      
-      catch(error) {
-      console.log(error)  
-      }
-          
-      }
 
   return (
    <Layout>

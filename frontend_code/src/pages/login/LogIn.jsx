@@ -9,34 +9,14 @@ import Layout from '../../components/layout/Layout';
 
 function LogIn() {
 
-  const { logUser, setNewLogUser, emailMessage, passwordMessage } = useContext(CirilloContext)
-
-  function handleClick(e) {
-    LoginInLoginPage()
-    e.preventDefault()
-  }
+  const { setNewLogUser, Login, emailMessage, passwordMessage } = useContext(CirilloContext)
 
   const navigate = useNavigate()
-  const LoginInLoginPage = async () => {
-      try{const res = await axios.post(
-            'http://localhost:5000/login', logUser,
-            {
-              headers: {
-                  'Content-Type': 'application/json',
-                },
-            },
-              
-          )
-      console.log(res.data)
-      localStorage.setItem('access token', res.data.accessToken)
-      localStorage.setItem('refresh token', res.data.refreshToken)
-      navigate("/")}
-      
-      catch(error) {
-      console.log(error)  
-      }
-          
-      }
+
+  function handleClick(e) {
+    Login(navigate)
+    e.preventDefault()
+  }
 
   return (
    <Layout>

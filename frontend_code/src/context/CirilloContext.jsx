@@ -208,7 +208,7 @@ function CirilloContextProvider(props) {
     }
 
     //a function that is triggered at the click of a register form submit button, now it just do the console.log, but it is intended to send data to the backend
-    const Register = async () => {
+    const Register = async (navigate) => {
         try{const res = await axios.post(
               'http://localhost:5000/register', user,
               {
@@ -219,6 +219,7 @@ function CirilloContextProvider(props) {
                 
             )
         console.log(res.data)
+        navigate("/login")
         }
         
         catch(error) {
@@ -227,7 +228,7 @@ function CirilloContextProvider(props) {
             
         }
 
-//login user
+    //login user
     function setNewLogUser(userData, a) {
         if (userData === 'email') {
             setLogUser({
@@ -242,6 +243,27 @@ function CirilloContextProvider(props) {
                 password: a
             })
             checkPassword()
+        }
+    }
+
+    //
+    const Login = async (navigate) => {
+        try{const res = await axios.post(
+              'http://localhost:5000/login', logUser,
+              {
+                headers: {
+                    'Content-Type': 'application/json',
+                  },
+              },
+                
+            )
+        console.log(res.data)
+        localStorage.setItem('access token', res.data.accessToken)
+        localStorage.setItem('refresh token', res.data.refreshToken)
+        navigate("/")}
+        
+        catch(error) {
+        console.log(error)  
         }
     }
  
@@ -272,6 +294,7 @@ function CirilloContextProvider(props) {
             setNewUser,
             setNewLogUser,
             Register,
+            Login,
             checkEmail,
             checkPassword,
         }}
