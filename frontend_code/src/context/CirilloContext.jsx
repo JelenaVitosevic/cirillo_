@@ -274,14 +274,7 @@ function CirilloContextProvider(props) {
         navigate("/")
     }
 
-    //checkIfUserLoged
-    function checkLog() {
-        let token = localStorage.getItem('access token')
-        console.log('poziva checkLog')
-        if (token) return true
-        else return false
-        
-    }
+   
  
     return (
         <CirilloContext.Provider
@@ -313,7 +306,6 @@ function CirilloContextProvider(props) {
             setNewLogUser,
             Register,
             Login,
-            checkLog,
             LogOut,
             checkEmail,
             checkPassword,
