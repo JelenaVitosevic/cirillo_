@@ -1,41 +1,13 @@
-
 .container {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center
 }
 
 .contentWrapper {
-    width: 50%;
     margin: 0 auto;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.buttonWrapper {
-    display: flex;
-    margin: 0 auto;
-    justify-content: center;
-    gap: 10px;
-    margin: 20px;
-    color: black;
-    width: 70%;
-}
-
-.circleButtonWrapper {
-    display: flex;
-    margin: 0px;
-    justify-content: center;
-    gap: 30px;
-    color: black;
-}
-
-.formWrapper {
-    margin: 0 auto;
-    margin-top: 20px;
     width: 40%;
     border: 2px solid #b79492;
     border-radius: 20px;
@@ -46,7 +18,7 @@
 .form {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 50%;
     margin: 0 auto;
     align-items: center;
     gap: 10px;
@@ -55,11 +27,11 @@
     color: #b79492;
 }
 
-.inputForm {
+.input {
     border: 2px solid #b79492;
     line-height: 30px;
     border-radius: 10px;
-    width: 90%;
+    width: 120%;
     text-align: center;
     font-family: 'Montserrat Alternates', sans-serif;
     font-weight: 500;
@@ -75,5 +47,22 @@
     font-weight: 300;
 }
 
+.registerWrapper {
+    width: 40%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
 
+.text {
+    padding: 5px 0;
+    font-size: 15px;
+    color: rgb(90, 70, 70);
+}
 
+.link {
+    font-size: 15px;
+    color: #b79492;
+    font-weight: 500;
+}

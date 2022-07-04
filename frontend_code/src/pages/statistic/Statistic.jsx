@@ -8,7 +8,7 @@ function Statistic() {
       <div className={styles.container}>
         Statistic page
       </div>
-    </Layout>
+      </Layout>
   )
 }
 

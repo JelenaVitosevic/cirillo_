@@ -1,10 +1,14 @@
 import React from 'react';
 import styles from './Header.module.css';
-import { FaUserAlt, FaRegChartBar, FaCog } from 'react-icons/fa';
+import { FaUserAlt, FaRegChartBar, FaCog, FaDoorOpen } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 
 function Header() {
+
+  let isLogedIn = localStorage.getItem('access token')
+  
+
   return (
     <header className={styles.header}>
       <div className={styles.wrapper}>
@@ -20,15 +24,24 @@ function Header() {
               </Link>
             </li>
             <li className={styles.headerListItem}>
+              <Link to='/settings' className={styles.navIconLink}>
+                <FaCog className={styles.navIcon}/>
+              </Link>
+            </li>
+            {isLogedIn &&
+            <>
+            <li className={styles.headerListItem}>
               <Link to='/statistic' className={styles.navIconLink}>
                 <FaRegChartBar className={styles.navIcon}/>
               </Link>
             </li>
             <li className={styles.headerListItem}>
-              <Link to='/settings' className={styles.navIconLink}>
-                <FaCog className={styles.navIcon}/>
+              <Link to='/logout' className={styles.navIconLink}>
+                <FaDoorOpen className={styles.navIcon}/>
               </Link>
             </li>
+            </>
+            }
           </ul>
         </nav>
       </div>

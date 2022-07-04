@@ -27,6 +27,8 @@ function Homepage() {
     activeTimerValue(value)
   }
 
+ let isLogedIn = localStorage.getItem('access token')
+
   return (
     <Layout>
       <div className={styles.container}>
@@ -38,6 +40,8 @@ function Homepage() {
               text1={timerText}
               text2={roundText}
             ></Timer>
+
+
             <div className={styles.buttonWrapper}>
                 <Button 
                   buttonStyle={'primary'} 
@@ -78,6 +82,17 @@ function Homepage() {
                   long break
                 </Button>
             </div>
+
+            {isLogedIn && 
+              <div className={styles.formWrapper}>
+                <form className={styles.form}>
+                  <label>Add New Task:</label>
+                  <input placeholder='Enter new task' className={styles.inputForm}></input>
+                  <Button buttonStyle={'submit'} className={styles.button}>add task</Button>
+                </form>
+              </div>
+            }
+
           </div>
       </div> 
     </Layout>

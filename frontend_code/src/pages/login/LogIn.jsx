@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import axios from 'axios';
 import styles from './LogIn.module.css'
 import Button from '../../components/buttons/Button';
 import { Link } from 'react-router-dom';
@@ -19,7 +18,7 @@ function LogIn() {
   }
 
   return (
-   <Layout>
+  <Layout>
     <div className={styles.container}>
       <div className={styles.contentWrapper}>
        <form noValidate className={styles.form} onSubmit={handleClick}>
@@ -71,7 +70,7 @@ function LogIn() {
       </Link>
     </div>
     </div>
-   </Layout>
+  </Layout>
   )
 }
 

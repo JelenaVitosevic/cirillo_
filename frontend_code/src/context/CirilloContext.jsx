@@ -28,6 +28,8 @@ function CirilloContextProvider(props) {
         email: '',
         password: '',
     })
+    const[token, setToken] = useState('');
+    const[isLogedIn, setIsLogedin] = useState(false)
     const[emailMessage, setEmailMessage] = useState('');
     const[passwordMessage, setPasswordMessage] = useState('');
 
@@ -216,7 +218,6 @@ function CirilloContextProvider(props) {
                     'Content-Type': 'application/json',
                   },
               },
-                
             )
         console.log(res.data)
         navigate("/login")
@@ -259,12 +260,27 @@ function CirilloContextProvider(props) {
             )
         console.log(res.data)
         localStorage.setItem('access token', res.data.accessToken)
-        localStorage.setItem('refresh token', res.data.refreshToken)
         navigate("/")}
         
         catch(error) {
         console.log(error)  
         }
+    }
+
+
+    //logout function
+    function LogOut(navigate) {
+        localStorage.removeItem('access token')
+        navigate("/")
+    }
+
+    //checkIfUserLoged
+    function checkLog() {
+        let token = localStorage.getItem('access token')
+        console.log('poziva checkLog')
+        if (token) return true
+        else return false
+        
     }
  
     return (
@@ -282,6 +298,8 @@ function CirilloContextProvider(props) {
             roundText,
             user,
             logUser,
+            isLogedIn,
+            token,
             emailMessage,
             passwordMessage,
             startTimer,
@@ -295,6 +313,8 @@ function CirilloContextProvider(props) {
             setNewLogUser,
             Register,
             Login,
+            checkLog,
+            LogOut,
             checkEmail,
             checkPassword,
         }}
