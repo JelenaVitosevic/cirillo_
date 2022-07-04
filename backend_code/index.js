@@ -21,8 +21,6 @@ const users = [];
 
 const loginUsers = [];
 
-let refreshTokens = [];
-
 
 app.get('/', (req, res) => {
     res.send('Jecin API')
@@ -86,20 +84,6 @@ app.post('/register', (req, res) => {
     } 
     })
 
-
-//HTTP POST TOKEN
-/*app.post('/token', (req, res) => {
-    const refreshToken = req.body.token
-    if (refreshToken == null) return res.sendStatus(401)
-    if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403)
-        const accessToken = generateAccessToken({ email: user.email })
-        res.json({ accessToken: accessToken })
-    })
-})*/
-
-
 //FUNCTION GENERATE ACCESS TOKEN
 function generateAccessToken(user) {
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
@@ -129,8 +113,6 @@ app.post('/login', (req, res) => {
     if(checkedUser) {
         if (hash(req.body.password) === checkedUser.password) {
             const accessToken = generateAccessToken(checkedUser)
-            /*const refreshToken = jwt.sign(checkedUser, process.env.REFRESH_TOKEN_SECRET)
-            refreshTokens.push(refreshToken)*/
             res.status(200).json({accessToken : accessToken})
             checkedUser.TOKEN = accessToken
             loginUsers.push(checkedUser)
@@ -156,29 +138,6 @@ function authenticateToken(req, res, next) {
         req.authUser = authUser
         next()
     })
-}
-
-/*HTTP DELETE - LOG OUT - REMOVES REFRESH TOKEN
-app.delete('/logout', authenticateToken, (req, res) => {
-
-    let loginUser = loginUsers.find(loginUser => {
-        if (loginUser.email === req.authUser.email) {
-            return loginUser
-        }
-    })
-
-    refreshTokens = refreshTokens.filter(token => token !== req.body.token)
-    res.sendStatus(204)
-})*/
-
-
-//FUNCTION FOR FINDING LOGIN USER
-function findUser() {
-    loginUsers.find(loginUser => {
-        if (loginUser.email === req.authUser.email) {
-            return loginUser
-        }
-})
 }
 
 //HTTP POST TASK REQUEST    
