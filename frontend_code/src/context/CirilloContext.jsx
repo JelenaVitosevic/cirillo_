@@ -30,6 +30,40 @@ function CirilloContextProvider(props) {
     const[emailMessage, setEmailMessage] = useState('');
     const[passwordMessage, setPasswordMessage] = useState('');
 
+
+    //tasks information
+    const [task, setTask] = useState([])
+    const [taskEdit, setTaskEdit] = useState({
+        item: {},
+        edit: false
+    })
+
+    //Delete Task
+    const deleteTask = (text) => {
+        if(window.confirm('Are you sure you want to delete?')){
+        setTask(task.filter((item) => item !== text))
+        }
+      } 
+
+    //Set item to be updated  
+    const editTask = (item) => {
+        setTaskEdit({
+            item,
+            edit: true
+        })
+    }  
+
+    //Update task item
+    const updateTask = (id, updItem) => {
+        setTask(
+           task.map((item) => (item.id === id ? {...item, ...updItem} : item))
+        )}
+
+    //Add task
+    function addTask(newTask) {
+        setTask([newTask,...task])
+    }
+
     
     //a function that is triggered when user types values in settings inputs, to change states for focus, short break, long break and rounds
     function changeTimerValues(timeValue, a) {
@@ -288,6 +322,8 @@ function CirilloContextProvider(props) {
             logUser,
             emailMessage,
             passwordMessage,
+            task,
+            taskEdit,
             startTimer,
             pauseTimer,
             stopTimer,
@@ -302,6 +338,10 @@ function CirilloContextProvider(props) {
             LogOut,
             checkEmail,
             checkPassword,
+            deleteTask,
+            editTask,
+            updateTask,
+            addTask
         }}
         >
          {props.children}   

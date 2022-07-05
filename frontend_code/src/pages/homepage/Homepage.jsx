@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import Button from '../../components/buttons/Button';
 import Layout from '../../components/layout/Layout';
+import TasksForm from '../../components/tasksForm/TasksForm';
+import TasksList from '../../components/tasksList/TasksList';
 import Timer from '../../components/timer/Timer';
 import { CirilloContext } from '../../context/CirilloContext';
 import styles from './Homepage.module.css';
@@ -84,33 +86,11 @@ function Homepage() {
             </div>
 
             {isLogedIn && 
-            <>
-              <div className={styles.taskContainer}>
-
-                <div className={styles.formWrapper}>
-                  <form className={styles.form}>
-                    <input type="text" placeholder='Enter new task' className={styles.inputForm}></input>
-                    <button className={styles.button} type="submit">+</button>
-                  </form>
-                </div>
-
-                <div className={styles.filterWrapper}>
-                  <select name='tasks' className={styles.filter}>
-                    <option value="all">All</option>
-                    <option value="new">New</option>
-                    <option value="in progress">In progress</option>
-                    <option value="completed">Completed</option>
-                  </select>
-                </div>
-
-                <div className={styles.tasksWrapper}>
-                  <ul className={styles.taskList}></ul>
-                </div>
-
-              </div>
-            </>
+            <div className={styles.taskContainer}>
+            <TasksForm/>
+            <TasksList/>
+            </div>
             }
-
           </div>
       </div> 
     </Layout>

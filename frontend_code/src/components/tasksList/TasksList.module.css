@@ -1,0 +1,17 @@
+.tasksList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 3%;
+    background-color: #eee2df;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.noText {
+    text-align: center;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 500;
+    color: #b79492;
+    margin: 20px;
+}

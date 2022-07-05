@@ -1,0 +1,36 @@
+.taskWrapper {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    
+}
+
+.task {
+    border: 2px solid #b79492;
+    line-height: 30px;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 500;
+    color: #b79492;
+    background-color: white;
+}
+
+.button {
+    border: none;
+    justify-content: center;
+    background-color: #eee2df;
+    cursor: pointer;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  background-color: #eee2df;
+    
+}
