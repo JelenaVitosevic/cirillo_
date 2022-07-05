@@ -16,7 +16,7 @@ function TasksList() {
     <div className={styles.tasksList}>
             
            {task.map((item) => (  
-             <Task key={task.indexOf(item)} item={item}/>   
+             <Task key={task.indexOf(item)} item={item.name}/>   
              
                
            ) )}

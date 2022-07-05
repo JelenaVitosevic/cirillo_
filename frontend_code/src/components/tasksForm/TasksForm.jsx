@@ -8,7 +8,10 @@ function Tasks() {
     const [text, setText] = useState('');
 
     const {
+        newTaskValue,
+        taskBackend,
         addTask,
+        AddTask,
         taskEdit,
         updateTask
       } = useContext(CirilloContext)
@@ -21,9 +24,17 @@ function Tasks() {
 
       const handleTextChange = (e) => {
         setText(e.target.value)
-    } 
-
+        newTaskValue(e.target.value)
+    }
+    
     const handleSubmit = (e) => {
+        e.preventDefault()
+        if(text) {
+            AddTask(taskBackend)
+        }
+    }
+
+    /*const handleSubmit = (e) => {
         e.preventDefault() 
         if(text) {
             const newTask = text
@@ -35,7 +46,7 @@ function Tasks() {
  
             setText('')
         }
-     }
+     }*/
     
   return (
     <div className={styles.taskContainer}>

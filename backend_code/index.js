@@ -86,7 +86,7 @@ app.post('/register', (req, res) => {
 
 //FUNCTION GENERATE ACCESS TOKEN
 function generateAccessToken(user) {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '24h' })
 }
 
 //HTTP POST LOGIN REQUEST    
@@ -132,7 +132,6 @@ function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1] //vraca ili token, ili undefined
     if (token == null) return res.status(401).send('NO TOKEN, NO ENTRY')
-
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, authUser) => {
         if (err) return res.sendStatus(403)
         req.authUser = authUser
@@ -167,6 +166,7 @@ app.post('/tasks', authenticateToken, (req, res) => {
             return loginUser
         }
     })
+    console.log(loginUser)
 
     if (loginUser.tasks.length > 0) {
         task.id = loginUser.tasks[loginUser.tasks.length - 1].id + 1
@@ -182,7 +182,6 @@ app.post('/tasks', authenticateToken, (req, res) => {
 
 //HTTP GET TASK REQUEST 
 app.get('/tasks/:id', authenticateToken, (req, res) => {
-    
     let user = loginUsers.find(user => {
         if (user.email === req.authUser.email) {
             return user

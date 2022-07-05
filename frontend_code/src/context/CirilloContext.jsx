@@ -33,6 +33,11 @@ function CirilloContextProvider(props) {
 
     //tasks information
     const [task, setTask] = useState([])
+    const [taskBackend, setTaskBackend] = useState({
+        name: '',
+        time: 0,
+        status: 'new'
+    })
     const [taskEdit, setTaskEdit] = useState({
         item: {},
         edit: false
@@ -59,7 +64,36 @@ function CirilloContextProvider(props) {
            task.map((item) => (item.id === id ? {...item, ...updItem} : item))
         )}
 
+    //set Task
+    function newTaskValue(a) {
+        setTaskBackend({
+            ...taskBackend,
+            name: a
+        })
+    }
+          
+
     //Add task
+    const AddTask = async () => {
+        try{const res = await axios.post(
+            'http://localhost:5000/tasks', taskBackend,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('access token')}`
+                }
+            },
+        )
+        console.log(res.data)
+        setTask(res.data.tasks)
+        console.log(task)
+        }
+        catch(error) {
+            console.log(error)
+        }
+    }
+
+
     function addTask(newTask) {
         setTask([newTask,...task])
     }
@@ -323,7 +357,9 @@ function CirilloContextProvider(props) {
             emailMessage,
             passwordMessage,
             task,
+            taskBackend,
             taskEdit,
+            newTaskValue,
             startTimer,
             pauseTimer,
             stopTimer,
@@ -341,7 +377,8 @@ function CirilloContextProvider(props) {
             deleteTask,
             editTask,
             updateTask,
-            addTask
+            addTask,
+            AddTask
         }}
         >
          {props.children}   
