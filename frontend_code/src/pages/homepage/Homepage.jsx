@@ -84,13 +84,31 @@ function Homepage() {
             </div>
 
             {isLogedIn && 
-              <div className={styles.formWrapper}>
-                <form className={styles.form}>
-                  <label>Add New Task:</label>
-                  <input placeholder='Enter new task' className={styles.inputForm}></input>
-                  <Button buttonStyle={'submit'} className={styles.button}>add task</Button>
-                </form>
+            <>
+              <div className={styles.taskContainer}>
+
+                <div className={styles.formWrapper}>
+                  <form className={styles.form}>
+                    <input type="text" placeholder='Enter new task' className={styles.inputForm}></input>
+                    <button className={styles.button} type="submit">+</button>
+                  </form>
+                </div>
+
+                <div className={styles.filterWrapper}>
+                  <select name='tasks' className={styles.filter}>
+                    <option value="all">All</option>
+                    <option value="new">New</option>
+                    <option value="in progress">In progress</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                </div>
+
+                <div className={styles.tasksWrapper}>
+                  <ul className={styles.taskList}></ul>
+                </div>
+
               </div>
+            </>
             }
 
           </div>

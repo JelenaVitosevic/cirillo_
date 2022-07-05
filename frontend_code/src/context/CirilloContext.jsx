@@ -1,6 +1,5 @@
 import React, { useState, createContext } from 'react';
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom';
 export const CirilloContext = createContext()
 
 function CirilloContextProvider(props) {
@@ -28,8 +27,6 @@ function CirilloContextProvider(props) {
         email: '',
         password: '',
     })
-    const[token, setToken] = useState('');
-    const[isLogedIn, setIsLogedin] = useState(false)
     const[emailMessage, setEmailMessage] = useState('');
     const[passwordMessage, setPasswordMessage] = useState('');
 
@@ -273,8 +270,6 @@ function CirilloContextProvider(props) {
         localStorage.removeItem('access token')
         navigate("/")
     }
-
-   
  
     return (
         <CirilloContext.Provider
@@ -291,8 +286,6 @@ function CirilloContextProvider(props) {
             roundText,
             user,
             logUser,
-            isLogedIn,
-            token,
             emailMessage,
             passwordMessage,
             startTimer,
