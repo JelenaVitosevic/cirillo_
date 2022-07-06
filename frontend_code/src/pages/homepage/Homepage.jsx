@@ -35,6 +35,7 @@ function Homepage() {
     <Layout>
       <div className={styles.container}>
           <div className={styles.contentWrapper}>
+            <div className={styles.contentFirst}>
             <Timer
               timerKey={timerType}
               timer={timerType}
@@ -83,6 +84,7 @@ function Homepage() {
                 >
                   long break
                 </Button>
+            </div>
             </div>
 
             {isLogedIn && 

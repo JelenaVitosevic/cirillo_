@@ -32,7 +32,7 @@ function CirilloContextProvider(props) {
 
 
     //tasks information
-    const [task, setTask] = useState([])
+    const [tasks, setTasks] = useState([])
     const [taskBackend, setTaskBackend] = useState({
         name: '',
         time: 0,
@@ -43,26 +43,6 @@ function CirilloContextProvider(props) {
         edit: false
     })
 
-    //Delete Task
-    const deleteTask = (text) => {
-        if(window.confirm('Are you sure you want to delete?')){
-        setTask(task.filter((item) => item !== text))
-        }
-      } 
-
-    //Set item to be updated  
-    const editTask = (item) => {
-        setTaskEdit({
-            item,
-            edit: true
-        })
-    }  
-
-    //Update task item
-    const updateTask = (id, updItem) => {
-        setTask(
-           task.map((item) => (item.id === id ? {...item, ...updItem} : item))
-        )}
 
     //set Task
     function newTaskValue(a) {
@@ -71,6 +51,39 @@ function CirilloContextProvider(props) {
             name: a
         })
     }
+
+    //Update Task
+     /*const updateTask = async (id) => {
+        try{const res = await axios.put(
+            `http://localhost:5000/tasks/update/${id}`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('access token')}`
+                }
+            },
+        )}
+     }*/
+
+     //Delete Task
+      const deleteTask = async (id) => {
+        try{const res = await axios.delete(
+            `http://localhost:5000/tasks/delete/${id}`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('access token')}`
+                }
+            },
+        )
+        if(res.data) {
+            setTasks(tasks.filter((item) => item.id !== res.data.id))
+        }
+        }
+        catch(error) {
+            console.log(error)
+        }
+      }
           
 
     //Add task
@@ -85,19 +98,13 @@ function CirilloContextProvider(props) {
             },
         )
         console.log(res.data)
-        setTask(res.data.tasks)
-        console.log(task)
+        setTasks(res.data.tasks)
+        console.log(tasks)
         }
         catch(error) {
             console.log(error)
         }
     }
-
-
-    function addTask(newTask) {
-        setTask([newTask,...task])
-    }
-
     
     //a function that is triggered when user types values in settings inputs, to change states for focus, short break, long break and rounds
     function changeTimerValues(timeValue, a) {
@@ -356,7 +363,7 @@ function CirilloContextProvider(props) {
             logUser,
             emailMessage,
             passwordMessage,
-            task,
+            tasks,
             taskBackend,
             taskEdit,
             newTaskValue,
@@ -374,10 +381,8 @@ function CirilloContextProvider(props) {
             LogOut,
             checkEmail,
             checkPassword,
+            //updateTask,
             deleteTask,
-            editTask,
-            updateTask,
-            addTask,
             AddTask
         }}
         >

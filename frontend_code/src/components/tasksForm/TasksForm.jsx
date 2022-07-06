@@ -10,7 +10,6 @@ function Tasks() {
     const {
         newTaskValue,
         taskBackend,
-        addTask,
         AddTask,
         taskEdit,
         updateTask

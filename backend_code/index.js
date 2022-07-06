@@ -254,7 +254,7 @@ app.delete('/tasks/delete/:id', authenticateToken, (req, res) => {
 
    if (delTask) {
       user.tasks = user.tasks.filter(task => task !== delTask)
-      res.send(user)
+      res.send(delTask)
    }
 })
 

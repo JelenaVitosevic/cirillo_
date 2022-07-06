@@ -7,6 +7,15 @@
 }
 
 .contentWrapper {
+    width: 100%;
+    margin: 0 auto;
+    justify-content: center;
+    display: flex;
+   
+    align-items: center;
+}
+
+.contentFirst {
     width: 50%;
     margin: 0 auto;
     justify-content: center;
@@ -35,7 +44,8 @@
 
 .taskContainer {
     margin-top: 20px;
-    width: 100%;
+    width: 50%;
+    margin: 0 30px;
     display: flex;
     flex-direction: column;
     gap: 10px;

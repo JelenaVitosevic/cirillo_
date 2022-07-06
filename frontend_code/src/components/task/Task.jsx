@@ -9,8 +9,8 @@ function Task({item}) {
 
   return (
     <div className={styles.taskWrapper}>
-        <div className={styles.task}> {item} </div>
-        <button onClick={() => deleteTask(item)} className={styles.button}>
+        <div className={styles.task}> {item.name} </div>
+        <button onClick={() => deleteTask(item.id)} className={styles.button}>
             <FaTimes color='#b79492' className={styles.icon}/>
         </button>
         <button onClick={() => console.log('edit task works')} className={styles.button}>

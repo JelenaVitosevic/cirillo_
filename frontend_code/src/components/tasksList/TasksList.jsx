@@ -6,17 +6,17 @@ import styles from './TasksList.module.css'
 
 function TasksList() {
 
-    const {task} = useContext(CirilloContext)
+    const {tasks} = useContext(CirilloContext)
 
-    if(!task || task.length === 0) {
+    if(!tasks || tasks.length === 0) {
         return <p className={styles.noText}>No Task yet</p>
     }
 
   return (
     <div className={styles.tasksList}>
             
-           {task.map((item) => (  
-             <Task key={task.indexOf(item)} item={item.name}/>   
+           {tasks.map((item) => (  
+             <Task key={tasks.indexOf(item)} item={item}/>   
              
                
            ) )}
