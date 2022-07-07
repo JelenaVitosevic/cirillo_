@@ -41,9 +41,8 @@ function Timer({timer, animate, timerKey, text1, text2}) {
                 strokeWidth={6}
                 size={220}
                 trailColor='#eee2df'
-                onComplete={ ({ remainingTime }) => {
+                onComplete={ () => {
                     stopTimer()
-                   console.log(remainingTime)
                     } 
                 }
             >
