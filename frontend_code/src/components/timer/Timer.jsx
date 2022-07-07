@@ -2,9 +2,12 @@ import styles from './Timer.module.css';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { CirilloContext } from '../../context/CirilloContext';
 import { useContext } from 'react';
+import { useState } from 'react';
 
 function Timer({timer, animate, timerKey, text1, text2}) {
     const {stopTimer} = useContext(CirilloContext)
+
+    const[elapsedTime, setElapsedTime] = useState(0)
 
     function renderTime({remainingTime}) {
         let minutes = Math.floor(remainingTime/60)
@@ -45,6 +48,10 @@ function Timer({timer, animate, timerKey, text1, text2}) {
                     stopTimer()
                     } 
                 }
+                onUpdate={(remainingTime) => {
+                    setElapsedTime(timer * 60 - remainingTime)
+                    console.log(elapsedTime, 'bla bla')
+                  }}
             >
                 {renderTime}
             </CountdownCircleTimer>
