@@ -227,6 +227,12 @@ app.put('/tasks/update/:id', authenticateToken, (req, res) => {
 
    if (task) {
         task = changedTask
+        user.tasks = user.tasks.map((taskk => {
+            if (taskk.id === task.id) {
+                return task
+            }
+            return taskk
+        }))
         res.status(200).send(task)
         console.log(user)
    }

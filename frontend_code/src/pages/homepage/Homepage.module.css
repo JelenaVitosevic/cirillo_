@@ -3,7 +3,8 @@
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
+    margin: 0 auto;
 }
 
 .contentWrapper {
@@ -44,8 +45,6 @@
 
 .taskContainer {
     margin-top: 20px;
-    width: 50%;
-    margin: 0 30px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -55,6 +54,14 @@
     background-color: #eee2df;
     font-size: 15px;
     font-weight: 400;
+}
+
+.taskContainerWrapper {
+    width: 50%;
+    margin: 0 auto; 
+    justify-content: center;
+    display: flex;
+    
 }
 
 

@@ -53,17 +53,28 @@ function CirilloContextProvider(props) {
     }
 
     //Update Task
-     /*const updateTask = async (id) => {
+     const updateTask = async (id, taskNew) => {
         try{const res = await axios.put(
-            `http://localhost:5000/tasks/update/${id}`,
+            `http://localhost:5000/tasks/update/${id}`, taskNew,
             {
                 headers: {
                     'Content-Type': 'application/json',
                     'authorization': `Bearer ${localStorage.getItem('access token')}`
                 }
             },
-        )}
-     }*/
+        )
+        console.log(res.data)
+        setTasks(tasks.map(task => {
+            if (task.id === res.data.id) {
+                return res.data
+            }
+            return task
+        }))
+       }
+       catch(error) {
+        console.log(error)
+       }
+     }
 
      //Delete Task
       const deleteTask = async (id) => {
@@ -381,7 +392,7 @@ function CirilloContextProvider(props) {
             LogOut,
             checkEmail,
             checkPassword,
-            //updateTask,
+            updateTask,
             deleteTask,
             AddTask
         }}

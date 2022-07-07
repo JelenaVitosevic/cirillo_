@@ -2,10 +2,24 @@ import React, { useContext } from 'react';
 import { CirilloContext } from '../../context/CirilloContext';
 import styles from './Task.module.css'
 import {FaTimes, FaEdit} from 'react-icons/fa'
+import { useState, useEffect } from 'react';
 
 function Task({item}) {
 
-    const {deleteTask, editTask} = useContext(CirilloContext);
+    const {tasks, deleteTask, updateTask} = useContext(CirilloContext);
+
+    const currentTask = tasks.find((task) => task.id === item.id)
+
+    const [newTask, setNewTask] = useState(currentTask)
+    const [showEditInput, setShowEditInput] = useState(false)
+    const [showEditTask, setShowEditTask] = useState(false)
+
+   /* useEffect( () => {
+      if (setShowEditTask === true) {
+        //setShowEditInput(false)
+
+      }
+    })*/
 
   return (
     <div className={styles.taskWrapper}>
@@ -13,9 +27,27 @@ function Task({item}) {
         <button onClick={() => deleteTask(item.id)} className={styles.button}>
             <FaTimes color='#b79492' className={styles.icon}/>
         </button>
-        <button onClick={() => console.log('edit task works')} className={styles.button}>
+        <button onClick={() => setShowEditInput(true)} className={styles.button}>
             <FaEdit color='#b79492' className={styles.icon}/>
         </button>
+        {showEditInput && (
+          <>
+           <input 
+              type="text" 
+              value={newTask?.name} 
+              onChange={ (e) => setNewTask((prevState) => ({
+                ...prevState,
+                name: e.target.value,
+                })) 
+              } 
+          />
+          <button onClick={() => {
+              updateTask(item.id, newTask)
+              setShowEditInput(false)
+            }
+          }>save</button>
+          </>
+        )}
     </div>
   )
 }

@@ -86,11 +86,13 @@ function Homepage() {
                 </Button>
             </div>
             </div>
-
+            
             {isLogedIn && 
+            <div className={styles.taskContainerWrapper}>
             <div className={styles.taskContainer}>
             <TasksForm/>
             <TasksList/>
+            </div>
             </div>
             }
           </div>
