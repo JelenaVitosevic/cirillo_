@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { useState } from 'react';
 
 function Timer({timer, animate, timerKey, text1, text2}) {
-    const {stopTimer} = useContext(CirilloContext)
+    const {stopTimer, getElapsedTime} = useContext(CirilloContext)
 
     const[elapsedTime, setElapsedTime] = useState(0)
 
@@ -50,7 +50,7 @@ function Timer({timer, animate, timerKey, text1, text2}) {
                 }
                 onUpdate={(remainingTime) => {
                     setElapsedTime(timer * 60 - remainingTime)
-                    console.log(elapsedTime, 'bla bla')
+                    getElapsedTime(elapsedTime)
                   }}
             >
                 {renderTime}

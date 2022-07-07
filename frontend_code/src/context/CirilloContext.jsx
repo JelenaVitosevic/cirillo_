@@ -41,6 +41,12 @@ function CirilloContextProvider(props) {
     const[activeTask, setActiveTask] = useState({})
     const[showTaskName, setShowTaskName] = useState(true)
     const[time, setTime] = useState(0);
+    const[elapsedTime, setElapsedTime] = useState(0)
+
+    //
+    function getElapsedTime(time) {
+        setElapsedTime(time)
+    }
 
     //set Task
     function newTaskValue(a) {
@@ -60,7 +66,7 @@ function CirilloContextProvider(props) {
     }
 
     //
-    function ShowTaskName() {
+    function ShowTask() {
         setShowTaskName(true)
     }
 
@@ -173,7 +179,7 @@ function CirilloContextProvider(props) {
     function stopTimer() {
         if (timerType === focus && round < rounds) {
             console.log('Focus time is over!')
-            setTime(time + myTimeValues.focusTime)
+            //setTime(time + myTimeValues.focusTime)
             setTimerType(short)
             setTimerText('short break')
         }
@@ -186,7 +192,7 @@ function CirilloContextProvider(props) {
         }
         else if (timerType === focus && round >= rounds) {
             console.log('Last focus time is over!')
-            setTime(time + myTimeValues.focusTime)
+            //setTime(time + myTimeValues.focusTime)
             setTimerType(long)
             setTimerText('long break')
         }
@@ -395,7 +401,8 @@ function CirilloContextProvider(props) {
             activeTask,
             showTaskName,
             time,
-            ShowTaskName,
+            elapsedTime,
+            ShowTask,
             newTaskValue,
             startTimer,
             pauseTimer,
@@ -414,7 +421,8 @@ function CirilloContextProvider(props) {
             updateTask,
             deleteTask,
             AddTask,
-            selectTask
+            selectTask,
+            getElapsedTime
         }}
         >
          {props.children}   

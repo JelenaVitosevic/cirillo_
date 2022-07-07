@@ -6,22 +6,32 @@ import { useState } from 'react';
 
 function Task({item}) {
 
-    const {tasks, activeTask, deleteTask, updateTask, selectTask, ShowTaskName} = useContext(CirilloContext);
+    const {tasks, elapsedTime, pauseTimer, activeTask, deleteTask, updateTask, selectTask, ShowTask, showTaskName} = useContext(CirilloContext);
 
     const currentTask = tasks.find((task) => task.id === item.id)
 
     const [newTask, setNewTask] = useState(currentTask)
     const [showEditInput, setShowEditInput] = useState(false)
+    const [showSelectedTask, setShowSelectedTask] = useState(false)
 
   return (
     <div className={styles.taskWrapper}>
        <button onClick={() => {
                     console.log('set task')
                     selectTask(item.name)
-                    ShowTaskName()
+                    ShowTask()
+                    setShowSelectedTask(true)
                 }} className={styles.button}>
             <FaClock color='#b79492' className={styles.icon}> </FaClock>
         </button>
+        {showSelectedTask && (
+          <>
+            <button onClick={() => {
+              pauseTimer()
+              console.log('Proslo je' + elapsedTime + 'sekundi')
+              }} >done</button>
+          </>
+        )}
         <div className={styles.task}> {item.name} </div>
         <button onClick={() => deleteTask(item.id)} className={styles.button}>
             <FaTimes color='#b79492' className={styles.icon}/>
