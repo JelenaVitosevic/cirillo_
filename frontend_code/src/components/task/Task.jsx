@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { CirilloContext } from '../../context/CirilloContext';
 import styles from './Task.module.css'
 import {FaTimes, FaEdit} from 'react-icons/fa'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function Task({item}) {
 
@@ -12,14 +12,6 @@ function Task({item}) {
 
     const [newTask, setNewTask] = useState(currentTask)
     const [showEditInput, setShowEditInput] = useState(false)
-    const [showEditTask, setShowEditTask] = useState(false)
-
-   /* useEffect( () => {
-      if (setShowEditTask === true) {
-        //setShowEditInput(false)
-
-      }
-    })*/
 
   return (
     <div className={styles.taskWrapper}>
@@ -32,20 +24,26 @@ function Task({item}) {
         </button>
         {showEditInput && (
           <>
-           <input 
-              type="text" 
-              value={newTask?.name} 
-              onChange={ (e) => setNewTask((prevState) => ({
-                ...prevState,
-                name: e.target.value,
-                })) 
-              } 
-          />
-          <button onClick={() => {
-              updateTask(item.id, newTask)
-              setShowEditInput(false)
+            <input 
+                type="text"
+                className={styles.saveInput} 
+                value={newTask?.name} 
+                onChange={ (e) => setNewTask((prevState) => ({
+                  ...prevState,
+                  name: e.target.value,
+                  })) 
+                } 
+            />
+            <button 
+              className={styles.saveButton} 
+              onClick={() => {
+                updateTask(item.id, newTask)
+                setShowEditInput(false)
+              }
             }
-          }>save</button>
+            >
+              save
+            </button>
           </>
         )}
     </div>

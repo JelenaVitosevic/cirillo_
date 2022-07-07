@@ -30,6 +30,7 @@ function Tasks() {
         e.preventDefault()
         if(text) {
             AddTask(taskBackend)
+            setText('')
         }
     }
 

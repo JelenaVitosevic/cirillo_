@@ -30,6 +30,22 @@ app.get('/register', (req, res) => {
     res.send(users);
 })
 
+app.get('/login', (req, res) => {
+    res.send(loginUsers);
+})
+
+/*app.get('/tasks/:email', (req, res) => {
+    let user = loginUsers.find(user => {
+        if (user.email === req.params.email) {
+            console.log(user)
+            return user
+        }
+        else console.log('ne radi task')
+    })
+    console.log(user)
+    res.send('JECA');
+})*/
+
 
 //HTTP POST REGISTER  
 app.post('/register', (req, res) => {

@@ -38,11 +38,6 @@ function CirilloContextProvider(props) {
         time: 0,
         status: 'new'
     })
-    const [taskEdit, setTaskEdit] = useState({
-        item: {},
-        edit: false
-    })
-
 
     //set Task
     function newTaskValue(a) {
@@ -376,7 +371,6 @@ function CirilloContextProvider(props) {
             passwordMessage,
             tasks,
             taskBackend,
-            taskEdit,
             newTaskValue,
             startTimer,
             pauseTimer,
