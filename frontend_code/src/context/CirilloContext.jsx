@@ -40,6 +40,7 @@ function CirilloContextProvider(props) {
     })
     const[activeTask, setActiveTask] = useState({})
     const[showTaskName, setShowTaskName] = useState(true)
+    const[time, setTime] = useState(0);
 
     //set Task
     function newTaskValue(a) {
@@ -172,6 +173,7 @@ function CirilloContextProvider(props) {
     function stopTimer() {
         if (timerType === focus && round < rounds) {
             console.log('Focus time is over!')
+            setTime(time + myTimeValues.focusTime)
             setTimerType(short)
             setTimerText('short break')
         }
@@ -184,6 +186,7 @@ function CirilloContextProvider(props) {
         }
         else if (timerType === focus && round >= rounds) {
             console.log('Last focus time is over!')
+            setTime(time + myTimeValues.focusTime)
             setTimerType(long)
             setTimerText('long break')
         }
@@ -192,8 +195,10 @@ function CirilloContextProvider(props) {
             setRound(1)
             setTimerText('work is done')
             setRoundText('')
-            console.log('Work is done!')
+            console.log('Work is done! You work' + time + 'minutes')
+            console.log(time)
         }
+        
     }
 
     //some idea for writing previous function in a different way, but it is not working properly
@@ -389,6 +394,7 @@ function CirilloContextProvider(props) {
             taskBackend,
             activeTask,
             showTaskName,
+            time,
             ShowTaskName,
             newTaskValue,
             startTimer,
