@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useState } from 'react';
 import Button from '../../components/buttons/Button';
 import Layout from '../../components/layout/Layout';
 import TasksForm from '../../components/tasksForm/TasksForm';
@@ -8,6 +9,8 @@ import { CirilloContext } from '../../context/CirilloContext';
 import styles from './Homepage.module.css';
 
 function Homepage() {
+
+  
 
   const {
     focus,
@@ -20,7 +23,9 @@ function Homepage() {
     isAnimate,
     startTimer,
     pauseTimer,
-    resetTimer
+    resetTimer,
+    activeTask,
+    showTaskName
   } = useContext(CirilloContext)
 
   function handleClick(value) {
@@ -36,6 +41,7 @@ function Homepage() {
       <div className={styles.container}>
           <div className={styles.contentWrapper}>
             <div className={styles.contentFirst}>
+              
             <Timer
               timerKey={timerType}
               timer={timerType}
@@ -43,6 +49,11 @@ function Homepage() {
               text1={timerText}
               text2={roundText}
             ></Timer>
+            {showTaskName && (
+                <>
+                 <div>{activeTask.name}</div>
+                </>
+              )}
 
 
             <div className={styles.buttonWrapper}>

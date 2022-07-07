@@ -38,6 +38,8 @@ function CirilloContextProvider(props) {
         time: 0,
         status: 'new'
     })
+    const[activeTask, setActiveTask] = useState({})
+    const[showTaskName, setShowTaskName] = useState(true)
 
     //set Task
     function newTaskValue(a) {
@@ -45,6 +47,20 @@ function CirilloContextProvider(props) {
             ...taskBackend,
             name: a
         })
+    }
+
+    //setActiveTask
+    function selectTask(name) {
+        setActiveTask(tasks.find(task => {
+            if (task.name === name) {
+                return task
+            }
+        }))
+    }
+
+    //
+    function ShowTaskName() {
+        setShowTaskName(true)
     }
 
     //Update Task
@@ -371,6 +387,9 @@ function CirilloContextProvider(props) {
             passwordMessage,
             tasks,
             taskBackend,
+            activeTask,
+            showTaskName,
+            ShowTaskName,
             newTaskValue,
             startTimer,
             pauseTimer,
@@ -388,7 +407,8 @@ function CirilloContextProvider(props) {
             checkPassword,
             updateTask,
             deleteTask,
-            AddTask
+            AddTask,
+            selectTask
         }}
         >
          {props.children}   

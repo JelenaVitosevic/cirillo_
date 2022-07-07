@@ -22,6 +22,7 @@
 }
 
 .button {
+    display: flex;
     border: none;
     justify-content: center;
     background-color: #eee2df;

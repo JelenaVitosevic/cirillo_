@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { CirilloContext } from '../../context/CirilloContext';
 import styles from './Task.module.css'
-import {FaTimes, FaEdit} from 'react-icons/fa'
+import {FaTimes, FaEdit, FaClock} from 'react-icons/fa'
 import { useState } from 'react';
 
 function Task({item}) {
 
-    const {tasks, deleteTask, updateTask} = useContext(CirilloContext);
+    const {tasks, activeTask, deleteTask, updateTask, selectTask, ShowTaskName} = useContext(CirilloContext);
 
     const currentTask = tasks.find((task) => task.id === item.id)
 
@@ -15,6 +15,13 @@ function Task({item}) {
 
   return (
     <div className={styles.taskWrapper}>
+       <button onClick={() => {
+                    console.log('set task')
+                    selectTask(item.name)
+                    ShowTaskName()
+                }} className={styles.button}>
+            <FaClock color='#b79492' className={styles.icon}> </FaClock>
+        </button>
         <div className={styles.task}> {item.name} </div>
         <button onClick={() => deleteTask(item.id)} className={styles.button}>
             <FaTimes color='#b79492' className={styles.icon}/>

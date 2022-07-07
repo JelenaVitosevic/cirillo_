@@ -82,7 +82,7 @@ function Register() {
             <div 
               className={styles.inputWrapper}>
               <input 
-                type="text" 
+                type="password" 
                 id='password' 
                 name='password' 
                 placeholder='Enter your password' 
