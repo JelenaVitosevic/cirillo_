@@ -1,7 +1,17 @@
 .container {
+    display: flex;
     justify-content: center;
     margin: 0 auto;
     align-items: center;
     text-align: center;
     margin-top: 20%;
+}
+
+.table {
+    border: 2px solid #b79492;
+}
+
+.tableRow {
+    border: 2px solid #b79492;
+
 }

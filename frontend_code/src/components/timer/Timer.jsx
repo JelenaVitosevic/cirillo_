@@ -7,8 +7,6 @@ import { useState } from 'react';
 function Timer({timer, animate, timerKey, text1, text2}) {
     const {stopTimer, getElapsedTime} = useContext(CirilloContext)
 
-    const[elapsedTime, setElapsedTime] = useState(0)
-
     function renderTime({remainingTime}) {
         let minutes = Math.floor(remainingTime/60)
         if (minutes < 10) {
@@ -33,6 +31,8 @@ function Timer({timer, animate, timerKey, text1, text2}) {
         )
     }
 
+    const[elapsedTime, setElapsedTime] = useState(0)
+
     return (
         <div className={styles.timerWrapper}>
             <CountdownCircleTimer
@@ -49,8 +49,8 @@ function Timer({timer, animate, timerKey, text1, text2}) {
                     } 
                 }
                 onUpdate={(remainingTime) => {
-                    setElapsedTime(timer * 60 - remainingTime)
-                    getElapsedTime(elapsedTime)
+                    getElapsedTime(timer * 60 - remainingTime)
+                    
                   }}
             >
                 {renderTime}

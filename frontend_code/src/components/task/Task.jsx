@@ -6,13 +6,16 @@ import { useState } from 'react';
 
 function Task({item}) {
 
-    const {tasks, elapsedTime, pauseTimer, activeTask, deleteTask, updateTask, selectTask, ShowTask, showTaskName} = useContext(CirilloContext);
+    const {tasks, elapsedTime, pauseTimer, resetTimer, activeTask, deleteTask, updateTask, updateTimeTask, selectTask, ShowTask, showTaskName} = useContext(CirilloContext);
 
     const currentTask = tasks.find((task) => task.id === item.id)
 
     const [newTask, setNewTask] = useState(currentTask)
     const [showEditInput, setShowEditInput] = useState(false)
     const [showSelectedTask, setShowSelectedTask] = useState(false)
+
+    let isLogedIn = localStorage.getItem('access token')
+
 
   return (
     <div className={styles.taskWrapper}>
@@ -28,7 +31,9 @@ function Task({item}) {
           <>
             <button onClick={() => {
               pauseTimer()
-              console.log('Proslo je' + elapsedTime + 'sekundi')
+              //console.log('Proslo je' + elapsedTime + 'sekundi')
+              updateTimeTask(item.id)
+              resetTimer()
               }} >done</button>
           </>
         )}

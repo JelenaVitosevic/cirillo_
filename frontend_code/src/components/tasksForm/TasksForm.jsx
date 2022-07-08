@@ -1,6 +1,6 @@
 import React from 'react';
 import { CirilloContext } from '../../context/CirilloContext';
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import styles from './TasksForm.module.css'
 
 function Tasks() {
@@ -56,15 +56,6 @@ function Tasks() {
                 <input type="text" placeholder='Enter new task' className={styles.inputForm} value={text} onChange={handleTextChange}></input>
                 <button className={styles.button} type="submit">+</button>
             </form>
-        </div>
-
-        <div className={styles.filterWrapper}>
-            <select name='tasks' className={styles.filter}>
-                <option value="all">All</option>
-                <option value="new">New</option>
-                <option value="in progress">In progress</option>
-                <option value="completed">Completed</option>
-            </select>
         </div>
 
         <div className={styles.tasksWrapper}>

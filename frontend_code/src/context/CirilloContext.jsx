@@ -40,13 +40,49 @@ function CirilloContextProvider(props) {
     })
     const[activeTask, setActiveTask] = useState({})
     const[showTaskName, setShowTaskName] = useState(true)
-    const[time, setTime] = useState(0);
-    const[elapsedTime, setElapsedTime] = useState(0)
+    const[prevTime, setPrevTime] = useState(0);
+   // const[elapsedTime, setElapsedTime] = useState(0)
+   let elapsedTime = 0;
 
     //
     function getElapsedTime(time) {
-        setElapsedTime(time)
+        //elapsedTime = time-elapsedTime
+        setActiveTask({
+            ...activeTask,
+            time: activeTask.time+(time - activeTask.time),
+            status: 'in progress'
+        })
+        setTasks(tasks.map(task => {
+            if (task.id === activeTask.id) {
+                return activeTask
+            }
+            return task
+        }))
     }
+
+     //Update Time Task
+     const updateTimeTask = async (id) => {
+        try{const res = await axios.put(
+            `http://localhost:5000/tasks/update/${id}`, activeTask,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('access token')}`
+                }
+            },
+        )
+        console.log(res.data)
+        setTasks(tasks.map(task => {
+            if (task.id === res.data.id) {
+                return res.data
+            }
+            return task
+        }))
+       }
+       catch(error) {
+        console.log(error)
+       }
+     }
 
     //set Task
     function newTaskValue(a) {
@@ -201,8 +237,8 @@ function CirilloContextProvider(props) {
             setRound(1)
             setTimerText('work is done')
             setRoundText('')
-            console.log('Work is done! You work' + time + 'minutes')
-            console.log(time)
+            //console.log('Work is done! You work' + time + 'minutes')
+            //console.log(time)
         }
         
     }
@@ -400,7 +436,8 @@ function CirilloContextProvider(props) {
             taskBackend,
             activeTask,
             showTaskName,
-            time,
+            //time,
+            prevTime,
             elapsedTime,
             ShowTask,
             newTaskValue,
@@ -422,7 +459,8 @@ function CirilloContextProvider(props) {
             deleteTask,
             AddTask,
             selectTask,
-            getElapsedTime
+            getElapsedTime,
+            updateTimeTask
         }}
         >
          {props.children}   
