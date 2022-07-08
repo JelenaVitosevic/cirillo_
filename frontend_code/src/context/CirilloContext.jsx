@@ -49,7 +49,7 @@ function CirilloContextProvider(props) {
         //elapsedTime = time-elapsedTime
         setActiveTask({
             ...activeTask,
-            time: activeTask.time+(time - activeTask.time),
+            time: (activeTask.time+(time - activeTask.time)),
             status: 'in progress'
         })
         setTasks(tasks.map(task => {
